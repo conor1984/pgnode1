@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+
+POSTGRESQL_DOCKER_USER=${POSTGRESQL_DOCKER_USER:-"docker"}
+POSTGRESQL_DOCKER_PASS=${POSTGRESQL_DOCKER_PASS:-"docker"}
+POSTGRESQL_REPMG_USER=${POSTGRESQL_REPMG_USER:-"repmgr"}
+POSTGRESQL_REPMG_PASS=${POSTGRESQL_REPMG_PASS:-"repmgr"}
+POSTGRESQL_DB=${POSTGRESQL_DB:-"repdb"}
+POSTGRESQL_TEMPLATE=${POSTGRESQL_TEMPLATE:-"DEFAULT"}
+
+POSTGRESQL_BIN=/usr/lib/postgresql/9.4/bin/postgres
+POSTGRESQL_CONFIG_FILE=/etc/postgresql/9.4/main/postgresql.conf
+POSTGRESQL_DATA=/var/lib/postgresql/9.4/main
+POSTGESQL_BOUNCER_CONF=/etc/pgbouncer/pgbouncer.ini
+
+
+POSTGRESQL_SINGLE="sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE"
+
+if [ ! -d $POSTGRESQL_DATA ]; then
+    chown -R postgres:postgres $POSTGRESQL_DATA
+    ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem $POSTGRESQL_DATA/server.crt
+    ln -s /etc/ssl/private/ssl-cert-snakeoil.key $POSTGRESQL_DATA/server.key
+fi
+
+$POSTGRESQL_SINGLE <<< "CREATE USER $POSTGRESQL_USER WITH SUPERUSER;" > /dev/null
+$POSTGRESQL_SINGLE <<< "ALTER USER $POSTGRESQL_USER WITH PASSWORD '$POSTGRESQL_PASS';" > /dev/null
+$POSTGRESQL_SINGLE <<< "CREATE DATABASE $POSTGRESQL_DB OWNER $POSTGRESQL_USER TEMPLATE $POSTGRESQL_TEMPLATE;" > /dev/null
+
+exec sudo -u postgres $POSTGRESQL_BIN --config-file=$POSTGRESQL_CONFIG_FILE
