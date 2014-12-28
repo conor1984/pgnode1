@@ -20,9 +20,9 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/
 
 RUN sudo apt-get update &&\
 	 apt-get upgrade &&\
-	 apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 &&\
-    libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget &&\ 
-    pgbouncer repmgr pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
+	 apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 
+RUN sudo apt-get install -y libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget 
+RUN sudo apt-get install -y pgbouncer repmgr pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
 	
 
 #Variables
