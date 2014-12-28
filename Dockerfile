@@ -41,7 +41,7 @@ RUN	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
-     pg_ctl start -l $PGLOG &&\
+     pg_ctl start -l $PGLOG/postgresql-9.4-main.log &&\
      createdb Repmgr &&\
      createdb Billboard &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
