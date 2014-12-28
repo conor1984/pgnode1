@@ -22,7 +22,7 @@ RUN sudo apt-get update &&\
     sudo apt-get upgrade &&\
     sudo apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 \
 	 libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
-	 pgbouncer repmgr pgbench #pgadmin zabbix-server-pgsql zabbix-frontend-php
+	 pgbouncer repmgr #pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
 	
 RUN sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | sudo chpasswd &&\
