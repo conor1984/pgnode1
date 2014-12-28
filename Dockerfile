@@ -7,7 +7,7 @@ FROM ubuntu:14.04
 ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin:/usr/bin/pgbench
 ENV PGDATA		/var/lib/postgresql/9.4/main
 ENV PGCONFIG	/etc/postgresql/9.4/main
-ENV PGBOUNCE    /etc/pgbouncer
+ENV PGBOUNCE    /etc/pcgbouncer
 ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
 ENV PGHOME		/var/lib/postgresql
@@ -24,9 +24,13 @@ RUN sudo apt-get update &&\
 	 libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
 	 pgbouncer repmgr #pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
 	
-RUN sudo mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
+RUN     adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
+	echo "maximus:max" | chpasswd &&\
+	usermod -d /var/lib/postgresql maximus
+	
+RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
     mkdir /etc/postgresql/9.4/repmgr &&\
-	chown maximus $PGDATA $PGCONFIG $PGLOG
+    chown maximus $PGDATA $PGCONFIG $PGLOG
 
 USER maximus
     
