@@ -24,6 +24,37 @@ RUN sudo apt-get update &&\
 	 libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
 	 pgbouncer repmgr #pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
 	
-RUN sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
-	echo "maximus:max" | sudo chpasswd &&\
-	sudo usermod -d /var/lib/postgresql maximus
+RUN sudo mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
+    mkdir /etc/postgresql/9.4/repmgr &&\
+	chown maximus $PGDATA $PGCONFIG $PGLOG
+
+USER maximus
+    
+RUN	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
+	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
+	 chmod go-rwx ~/.ssh/* &&\
+	 #cd ~/.ssh &&\
+	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
+	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
+     pg_ctl start -l $PGLOG &&\
+     createdb Repmgr &&\
+     createdb Billboard &&\
+     $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
+     $PSQL "DROP SCHEMA public;" &&\
+     #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
+     repmgr -f $PGREP/repmgr.conf --verbose master register &&\
+     mkdir ~/scripts
+
+
+ADD postgresql.conf /etc/postgresql/9.4/main/postgresql.conf
+ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
+ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
+ADD repmgr.conf $PGREP/repmgr.conf
+ADD userlist.txt $PGBOUNCE/userlist.txt
+ADD failover.sh $PGHOME/scripts/failover.sh
+#ADD run /usr/local/bin/run
+#RUN chmod +x /usr/local/bin/run
+
+VOLUME ["/var/lib/postgresql"]
+EXPOSE 5432 6432
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
