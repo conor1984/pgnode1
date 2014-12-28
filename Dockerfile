@@ -5,8 +5,8 @@ FROM ubuntu:14.04
 
 #Environment 
 ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin:/usr/bin/pgbench
-ENV PGDATA		/var/lib/postgresql/9.4/main
-ENV PGCONFIG	/etc/postgresql/9.4/main
+ENV PGDATA		/var/lib/postgresql/9.4/cluster
+ENV PGCONFIG	/etc/postgresql/9.4/cluster
 ENV PGBOUNCE    /etc/pcgbouncer
 ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
@@ -24,33 +24,38 @@ RUN sudo apt-get update &&\
 	 libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
 	 pgbouncer repmgr #pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
 	
+USER postgres
+RUN  cd /var/lib/postgresql/9.4 &&\
+     rm -rf *
+     
+USER root
 RUN     adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
 	usermod -d /var/lib/postgresql maximus &&\
-	sudo chown -R maximus $PGHOME/ $PGDATA/ $PGCONFIG/ /var/log/postgresql/
+	sudo chown -R maximus $PGHOME  $PGLOG /etc/postgresql/9.4 /var/lib/postgresql/9.4
 	
 	
 	
 RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
     mkdir /etc/postgresql/9.4/repmgr 
-    
 
 USER maximus
-    
-RUN	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
-	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
-	 chmod go-rwx ~/.ssh/* &&\
+RUN	 cd /var/lib/postgresql/9.4 &&
+	 pg_createcluster 9.4 cluster &&\
+#	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
+#	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
+#	 chmod go-rwx ~/.ssh/* &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
      pg_ctl start -l $PGLOG/postgresql-9.4-main.log &&\
-     createdb Repmgr &&\
-     createdb Billboard &&\
-     $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
-     $PSQL "DROP SCHEMA public;" &&\
+     createdb Repmgr #&&\
+ #    createdb Billboard &&\
+ #    $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
+ #    $PSQL "DROP SCHEMA public;" &&\
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
-     repmgr -f $PGREP/repmgr.conf --verbose master register &&\
-     mkdir ~/scripts
+ #    repmgr -f $PGREP/repmgr.conf --verbose master register &&\
+ #    mkdir ~/scripts
 
 
 ADD postgresql.conf /etc/postgresql/9.4/main/postgresql.conf
