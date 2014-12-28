@@ -12,6 +12,8 @@ ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
 ENV PGHOME		/var/lib/postgresql
 
+USER root
+
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
 
