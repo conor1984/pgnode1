@@ -24,4 +24,4 @@ RUN wget http://repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zab
 RUN sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
 
 #Variables
-PSQL="psql --command "
+#PSQL="psql --command "
