@@ -25,3 +25,20 @@ RUN sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
 
 #Variables
 #PSQL="psql --command "
+
+RUN sudo apt-get update &&\
+	sudo apt-get upgrade &&\
+	sudo apt-get install -y python-software-properties
+
+ADD postgresql.conf /etc/postgresql/9.4/main/postgresql.conf
+ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
+ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
+ADD repmgr.conf $PGREP/repmgr.conf
+ADD userlist.txt $PGBOUNCE/userlist.txt
+ADD failover.sh $PGHOME/scripts/failover.sh
+#ADD run /usr/local/bin/run
+RUN chmod +x /usr/local/bin/run
+
+VOLUME ["/var/lib/postgresql"]
+EXPOSE 5432 6432
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
