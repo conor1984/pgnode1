@@ -14,12 +14,11 @@ ENV PGHOME		/var/lib/postgresql
 
 USER root
 
-RUN locale-gen en_US.UTF-8
-RUN update-locale LANG=en_US.UTF-8
-RUN sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password 
-RUN echo "maximus:max" | sudo chpasswd &&\
-	sudo usermod -d /var/lib/postgresql maximus #&&\
-#	ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""
+RUN sudo apt-get update &&\
+	sudo apt-get upgrade &&\
+	sudo apt-get install -y python-software-properties software-properties-common postgresql-9.4-plproxy postgresql-client-9.4 postgresql-contrib-9.4 &&\
+    libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget &&\ 
+    pgbouncer repmgr pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
 	
 
 #Variables
