@@ -15,15 +15,12 @@ ENV PSQL        psql --command
 
 USER root
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 &&\
+	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN sudo apt-get update &&\
-	 apt-get upgrade &&\
-	 apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 
-RUN sudo apt-get install -y libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget 
-RUN sudo apt-get install -y pgbouncer repmgr pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
+    sudo apt-get upgrade &&\
+    sudo apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 \
+	 libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
+	 pgbouncer repmgr pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
 	
-
-#Variables
-#PSQL="psql --command "
