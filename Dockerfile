@@ -26,8 +26,11 @@ RUN sudo apt-get update &&\
 	
 RUN     adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
-	chown maximus:maximus $PGHOME $PGDATA $PGCONFIG $PGLOG &&\
-	usermod -d /var/lib/postgresql maximus
+	pkill -9 -u maximus &&\
+	usermod -d /var/lib/postgresql maximus &&\
+	chown maximus:maximus $PGHOME $PGDATA $PGCONFIG $PGLOG
+	
+	
 	
 RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
     mkdir /etc/postgresql/9.4/repmgr 
