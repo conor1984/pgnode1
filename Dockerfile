@@ -1,7 +1,7 @@
 #Master Node1 
 
 FROM ubuntu:14.04
-MAINTAINER conor.nagle@firmex.com
+#MAINTAINER conor.nagle@firmex.com
 
 #Environment 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin:/usr/bin/pgbench
@@ -20,11 +20,12 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 #Zabbix
-RUN wget http://repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+trusty_all.deb
-RUN sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
+#RUN wget http://repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+trusty_all.deb
+#RUN sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
 
 #Variables
 #PSQL="psql --command "
+USER root
 
 RUN sudo apt-get update &&\
 	sudo apt-get upgrade &&\
