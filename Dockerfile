@@ -16,10 +16,10 @@ USER root
 
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
-RUN sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
-	echo "maximus:max" | sudo chpasswd &&\
-	sudo usermod -d /var/lib/postgresql maximus &&\
-	ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""
+RUN sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password #&&\
+#	echo "maximus:max" | sudo chpasswd &&\
+#	sudo usermod -d /var/lib/postgresql maximus &&\
+#	ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""
 	
 
 #Variables
