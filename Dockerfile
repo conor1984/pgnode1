@@ -53,6 +53,7 @@ mailutils
 #ssh-keygen -t rsa -f  var/lib/.ssh/id_rsa -q -N ""  &&\
 
 
+ADD pg_ctl.conf $PGCONFIG
 
 USER postgres
 RUN	 mkdir $PGHOME/.ssh  &&\
@@ -63,7 +64,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
      #/etc/init.d/postgresql start &&\
-     pg_ctlcluster  9.4 main start -l 'logtest.log' &&\
+     pg_ctlcluster  9.4 main start &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
      #createdb Repmgr &&\
      #createdb Billboard &&\
