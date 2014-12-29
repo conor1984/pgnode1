@@ -31,7 +31,8 @@ libxslt1-dev \
 libxml2-dev \ 
 libedit-dev \
 pgbouncer \
-repmgr 
+repmgr \
+openssh-server
 
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
@@ -42,8 +43,7 @@ RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone"
     #mkdir /etc/postgresql/9.4/repmgr 
 
 USER maximus
-RUN	 ssh-keygen -t rsa  &&\
-	 $PGHOME/.ssh/id_rsa -q -N "" &&\
+RUN	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
 	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
 	 chmod go-rwx $PGHOME/.ssh/* &&\
 	 #cd ~/.ssh &&\
