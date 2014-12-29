@@ -64,9 +64,11 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      #pg_ctl start -l $PGLOG/postgresql-9.4-main.log &&\
      createdb Repmgr &&\
      #createdb Billboard &&\
+     $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      $PSQL "CREATE DATABASE Repmgr;" &&\ 
-     $PSQL "DROP SCHEMA public;" 
+     $PSQL "CREATE DATABASE Billboard;"
+     #$PSQL "DROP SCHEMA public;" 
      
 ADD repmgr.conf $PGREP/repmgr.conf
 #RUN repmgr -f $PGREP/repmgr.conf --verbose master register &&\
