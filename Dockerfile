@@ -46,7 +46,7 @@ RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone"
 
 
 USER maximus
-RUN	 mkdir $PGHOME/.ssh
+RUN	 mkdir $PGHOME/.ssh  &&\
 	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
 	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
 	 chmod go-rwx $PGHOME/.ssh/* &&\
