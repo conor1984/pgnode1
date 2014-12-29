@@ -21,7 +21,7 @@ RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044
 
 RUN apt-get update && apt-get upgrade &&\
 	 apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 \
-	 libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
+	 libxslt-dev libxml2-dev libpam-dev libedit-dev \
 	 pgbouncer repmgr 
 	 
 
