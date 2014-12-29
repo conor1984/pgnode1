@@ -40,9 +40,9 @@ RUN apt-get update && apt-get install -y python-software-properties software-pro
 #USER postgres
 #RUN     #pg_ctl stop
 	#/etc/init.d/postgresql stop
-USER root
-RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
-	echo "maximus:max" | chpasswd #&&\
+#USER root
+#RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
+#	echo "maximus:max" | chpasswd #&&\
 	#sudo chown -R maximus:maximus /var/lib/postgresql/9.4/main
 	#$PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ $PGRUN
 
