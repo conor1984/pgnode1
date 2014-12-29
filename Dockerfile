@@ -77,7 +77,7 @@ RUN	 #cd ~ &&\
      #/etc/init.d/postgresql start &&\
      #pg_ctlcluster  9.4 main start  &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
-     #createdb Repmgr &&\
+     createdb Repmgr &&\
      #createdb Billboard &&\
      #$PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
      #$PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
