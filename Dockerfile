@@ -63,12 +63,10 @@ mailutils
 #RUN	 rm /var/lib/postgresql/9.4/main/postmaster.pid 
 	 
 USER maximus
-RUN	 cd ~ &&\ 
-	 mkdir /etc/ &&\
-	 mkdir /logs/ &&\
-	 mkdir /cluster/ &&\
-	 mkdir /cluster/data &&\
-	 mkdir /sockets/ 
+RUN	 mkdir /home/maximus/logs/ &&\
+	 mkdir /home/maximus/cluster/ &&\
+	 mkdir /home/maximus/cluster/data &&\
+	 mkdir /home/maximus/sockets/ 
 
 ADD postgresql.conf /home/maximus/cluster/postgresql.conf
 ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
