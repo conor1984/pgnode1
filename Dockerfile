@@ -76,7 +76,7 @@ RUN	 cd /home/maximus &&\
 ADD postgresql.conf /home/maximus/cluster/postgresql.conf
 ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
-RUN	 pg_createcluster --start -p 5433 -c /home/maximus/cluster -s /tmp -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster 
+#RUN	 pg_createcluster --start -p 5433 -c /home/maximus/cluster -s /tmp -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster 
 #&&\
         # pg_ctlcluster  9.4 cluster start  
 EXPOSE 5433 6432 22
@@ -95,14 +95,15 @@ EXPOSE 5433 6432 22
      #-l $PGLOG/postgresql-9.4-main.log &&\
     # createdb Repmgr &&\
      #createdb Billboard &&\
-RUN     $PSQL  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+#RUN     $PSQL  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
     # mkdir $PGHOME/scripts
      #$PSQL "DROP SCHEMA public;" 
      
-ADD repmgr.conf $PGREP/repmgr.conf
+#ADD repmgr.conf $PGREP/repmgr.conf
+
 #RUN    repmgr -D $PGDATA -d Billboard -p 5432 -U repmgr -R postgres --verbose standby clone pgnode1 
 #RUN 	repmgr -f $PGREP/repmgr.conf --verbose master register 
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
