@@ -67,14 +67,15 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      $PSQL "CREATE DATABASE Repmgr;" &&\ 
-     $PSQL "CREATE DATABASE Billboard;"
+     $PSQL "CREATE DATABASE Billboard;" &&\
+     mkdir $PGHOME/scripts
      #$PSQL "DROP SCHEMA public;" 
      
 ADD repmgr.conf $PGREP/repmgr.conf
 #RUN repmgr -f $PGREP/repmgr.conf --verbose master register &&\
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
      
-     mkdir $PGHOME/scripts
+     
 
 
 ADD postgresql.conf $PGCONFIG/postgresql.conf
