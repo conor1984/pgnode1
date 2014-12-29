@@ -47,7 +47,8 @@ mailutils
 
 #USER postgres
 RUN  sudo mkdir /etc/postgresql/9.4/cluster &&\
-     sudo chown maximus -R /etc/postgresql/9.4/cluster 
+     sudo chown maximus -R /etc/postgresql/9.4/cluster &&\
+     ln -s /home/maximus/sockets/.s.PGSQL.5432 /var/run/postgresql/.s.PGSQL.5432
 
 #workaround (maybe not required)
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
