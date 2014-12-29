@@ -19,7 +19,7 @@ RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044
 	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN  #apt-get update && 
-apt-get install -y libxslt1-dev \
+sudo apt-get install -y libxslt1-dev \
 libxml2-dev \
 libedit-dev \
 libpam-dev \
