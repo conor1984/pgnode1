@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y python-software-properties software-pro
 #libxml2-dev \ 
 #libedit-dev \
 #pgbouncer \
-repmgr #\
+repmgr 
 #openssh-server
 
 #USER postgres
