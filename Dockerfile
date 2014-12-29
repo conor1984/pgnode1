@@ -76,7 +76,7 @@ RUN	 cd /home/maximus &&\
 ADD postgresql.conf /home/maximus/cluster/postgresql.conf
 ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
-RUN	 pg_createcluster --start -c /home/maximus/cluster -s /tmp -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster 
+RUN	 pg_createcluster --start -p 5433 -c /home/maximus/cluster -s /tmp -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster 
 #&&\
         # pg_ctlcluster  9.4 cluster start  
 EXPOSE 5433 6432 22
