@@ -68,7 +68,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      #createdb Billboard &&\
      $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
-     $PSQL "CREATE DATABASE Repmgr;" &&\ 
+     #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      $PSQL "CREATE DATABASE Billboard;" &&\
      mkdir $PGHOME/scripts
      #$PSQL "DROP SCHEMA public;" 
