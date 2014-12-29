@@ -33,9 +33,8 @@ RUN apt-get update && apt-get install -y python-software-properties software-pro
 #libxslt1-dev \
 #libxml2-dev \ 
 #libedit-dev \
-#pgbouncer \
+pgbouncer \
 repmgr 
-#openssh-server
 
 #USER postgres
 #RUN     #pg_ctl stop
