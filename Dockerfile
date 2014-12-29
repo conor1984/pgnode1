@@ -73,6 +73,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      $PSQL "CREATE DATABASE Billboard;" &&\
+     $PSQL "CREATE DATABASE Billboard2;" &&\
      mkdir $PGHOME/scripts
      #$PSQL "DROP SCHEMA public;" 
      
