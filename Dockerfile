@@ -67,7 +67,10 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      #createdb Billboard &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      $PSQL "CREATE DATABASE Repmgr;" &&\ 
-     $PSQL "DROP SCHEMA public;" &&\
+     $PSQL "DROP SCHEMA public;" 
+     
+ADD repmgr.conf $PGREP/repmgr.conf
+#RUN repmgr -f $PGREP/repmgr.conf --verbose master register &&\
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
      
      mkdir $PGHOME/scripts
@@ -76,10 +79,6 @@ RUN	 mkdir $PGHOME/.ssh  &&\
 ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
-ADD repmgr.conf $PGREP/repmgr.conf
-
-
-RUN repmgr -f $PGREP/repmgr.conf --verbose master register 
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 #ADD run /usr/local/bin/run
