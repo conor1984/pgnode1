@@ -43,7 +43,10 @@ RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone"
     #mkdir /etc/postgresql/9.4/repmgr 
 
 USER maximus
-RUN	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
+RUN	 ssh-keygen -t rsa #-f 
+	 #$PGHOME/.ssh/id_rsa -q -N ""  &&\
+	 "\r" &&\
+	 "\r" &&\
 	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
 	 chmod go-rwx $PGHOME/.ssh/* &&\
 	 #cd ~/.ssh &&\
