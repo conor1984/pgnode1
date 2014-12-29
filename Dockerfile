@@ -36,8 +36,8 @@ repmgr \
 openssh-server
 
 USER postgres
-RUN     pg_ctl stop
-
+RUN     #pg_ctl stop
+	/etc/init.d/postgresql stop
 USER root
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
