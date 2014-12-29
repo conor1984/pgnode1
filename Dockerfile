@@ -53,7 +53,7 @@ mailutils
 #Log issue fix (not working)
 #ADD pg_ctl.conf $PGCONFIG/pg_ctl.conf
 RUN  chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
-USER postgres
+USER maximus
 RUN	 mkdir $PGHOME/.ssh  &&\
 	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
 	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
