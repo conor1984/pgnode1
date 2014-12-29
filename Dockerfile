@@ -46,7 +46,7 @@ mailutils
 
 
 USER postgres
-     mkdir /etc/postgresql/9.4/cluster &&\
+RUN  mkdir /etc/postgresql/9.4/cluster &&\
      chown maximus -R /etc/postgresql/9.4/cluster 
 
 #workaround (maybe not required)
