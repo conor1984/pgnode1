@@ -20,14 +20,23 @@ RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044
 	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 #RUN apt-get update && apt-get upgrade &&\
-RUN apt-get update && apt-get install -y libxslt1-dev libxml2-dev  libedit-dev libpam-dev
-#python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4
-	 #libxslt1-dev libxml2-dev  libedit-dev \
-	# pgbouncer repmgr 
-	 #libpam-dev
-	 
+RUN 
+apt-get update && apt-get install -y libxslt1-dev \
+libxml2-dev \
+libedit-dev \
+libpam-dev \
+python-software-properties \
+software-properties-common \
+postgresql-9.4 \
+postgresql-client-9.4 \
+postgresql-contrib-9.4 \
+libxslt1-dev \
+libxml2-dev \ 
+libedit-dev \
+pgbouncer \
+repmgr 
 
-USER root
+	 
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd #&&\
 	sudo chown maximus #$PGHOME/ # $PGLOG/ $PGCONFIG/ $PGDATA/ /var/run/postgresql/
