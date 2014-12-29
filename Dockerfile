@@ -47,8 +47,8 @@ mailutils
 
 #USER postgres
 RUN  sudo mkdir /etc/postgresql/9.4/cluster &&\
-     sudo chown maximus -R /etc/postgresql/9.4/cluster &&\
-     ln -s /home/maximus/sockets/.s.PGSQL.5432 /var/run/postgresql/.s.PGSQL.5432
+     sudo chown maximus -R /etc/postgresql/9.4/cluster 
+     #ln -s /home/maximus/sockets/.s.PGSQL.5432 /var/run/postgresql/.s.PGSQL.5432
 
 #workaround (maybe not required)
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
@@ -76,7 +76,7 @@ RUN	 cd /home/maximus &&\
 ADD postgresql.conf /home/maximus/cluster/postgresql.conf
 ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
-RUN	 pg_createcluster -c /home/maximus/cluster -s /home/maximus/sockets -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster &&\
+RUN	 pg_createcluster -c /home/maximus/cluster -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster &&\
 #&&\
          pg_ctlcluster  9.4 cluster start  
 EXPOSE 5433 6432 22
