@@ -35,10 +35,10 @@ RUN #sudo apt-get update &&\
 #     rm -rf * 
      
 USER root
-RUN     adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
+RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
 	#usermod -d /var/lib/postgresql maximus &&\
-	chown -R maximus:maximus $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ /var/run/postgresql/
+	sudo chown -R maximus:maximus $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ /var/run/postgresql/
 	
 	
 	
