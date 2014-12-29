@@ -24,7 +24,8 @@ RUN #sudo apt-get update &&\
     #sudo apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 
 	 #libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
 	 #pgbouncer repmgr 
-	 apt-get update && apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4
+	 apt-get update && apt-get upgrade &&\
+	 apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4
 
 
 #USER postgres
