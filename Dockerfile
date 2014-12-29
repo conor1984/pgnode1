@@ -62,8 +62,8 @@ RUN	 mkdir $PGHOME/.ssh  &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
-     /etc/init.d/postgresql start &&\
-     #pg_ctlcluster  9.4 main start "-l" "/var/log/postgresql/logtest.log" &&\
+     #/etc/init.d/postgresql start &&\
+     pg_ctlcluster  9.4 main start '-l /var/log/postgresql/logtest.log' &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
      #createdb Repmgr &&\
      #createdb Billboard &&\
@@ -92,4 +92,4 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 #RUN chmod +x /usr/local/bin/run
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 EXPOSE 5432  6432  22
-CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf", "-r", "log_file=/var/log/postgresql/mylog.log"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
