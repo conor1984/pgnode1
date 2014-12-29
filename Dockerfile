@@ -45,8 +45,9 @@ sendmail \
 mailutils
 
 
-#USER postgres
-#RUN  mkdir /etc/postgresql/9.4/cluster  
+USER postgres
+     mkdir /etc/postgresql/9.4/cluster &&\
+     chown maximus -R /etc/postgresql/9.4/cluster 
 
 #workaround (maybe not required)
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
@@ -70,8 +71,7 @@ RUN	 cd /home/maximus &&\
          mkdir /home/maximus/logs/ &&\
 	 mkdir /home/maximus/cluster/ &&\
 	 mkdir /home/maximus/cluster/data &&\
-	 mkdir /home/maximus/sockets/ &&\
-	 mkdir /etc/postgresql/9.4/cluster  
+	 mkdir /home/maximus/sockets/ 
 ADD postgresql.conf /home/maximus/cluster/postgresql.conf
 ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
