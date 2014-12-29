@@ -4,7 +4,7 @@ FROM ubuntu:14.04
 #MAINTAINER conor.nagle@firmex.com
 
 #Environment 
-ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin:/usr/bin/pgbench
+ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin
 ENV PGDATA		/var/lib/postgresql/9.4/main
 ENV PGCONFIG	/etc/postgresql/9.4/main
 ENV PGBOUNCE    /etc/pcgbouncer
@@ -65,7 +65,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      mkdir $PGHOME/scripts
 
 
-ADD postgresql.conf /etc/postgresql/9.4/main/postgresql.conf
+ADD postgresql.conf $PGDATA/postgresql.conf
 ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD repmgr.conf $PGREP/repmgr.conf
