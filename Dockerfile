@@ -16,12 +16,6 @@ ENV PGLOG		/var/log/postgresql/pglog.log
 ENV PSQL        psql --command 
 
 #USER root
-RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
-	echo "maximus:max" | chpasswd 
-	#&&\
-	#sudo chown -R maximus:maximus /var/lib/postgresql/9.4/main $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ $PGRUN
-
-#USER root
 RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 &&\
 	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
@@ -46,8 +40,10 @@ repmgr \
 sendmail \
 mailutils
 
-
-RUN	sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
+#USER root
+RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
+	echo "maximus:max" | chpasswd &&\
+	sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
 #workaround (maybe not required)
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
     #mkdir /etc/postgresql/9.4/repmgr 
