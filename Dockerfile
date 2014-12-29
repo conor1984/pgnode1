@@ -60,7 +60,7 @@ RUN	 #cd /var/lib/postgresql/9.4 &&\
      createdb Repmgr &&\
      #createdb Billboard &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
-     $PSQL "CREATE DATABASE Repmgr;" 
+     $PSQL "CREATE DATABASE Repmgr;" &&\ 
  #    $PSQL "DROP SCHEMA public;" &&\
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
  #    repmgr -f $PGREP/repmgr.conf --verbose master register &&\
