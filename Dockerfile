@@ -66,7 +66,7 @@ USER maximus
 RUN	 cd ~ &&\
 	 echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 . ~/.pam_environment &&\ 
-	 /etc/init.d/postgresql start &&\
+	# /etc/init.d/postgresql start &&\
 	 #mkdir $PGHOME/.ssh  &&\
 	 #ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
 	 #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
@@ -78,11 +78,11 @@ RUN	 cd ~ &&\
      #pg_ctlcluster  9.4 main start  &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
      #createdb Repmgr &&\
-     createdb Billboard &&\
-     $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
-     $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
+     #createdb Billboard &&\
+     #$PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
+     #$PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
-     $PSQL "CREATE DATABASE Billboard;" &&\
+     #$PSQL "CREATE DATABASE Billboard;" &&\
      mkdir $PGHOME/scripts
      #$PSQL "DROP SCHEMA public;" 
      
