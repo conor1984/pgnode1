@@ -95,7 +95,7 @@ EXPOSE 5433 6432 22
      #-l $PGLOG/postgresql-9.4-main.log &&\
     # createdb Repmgr &&\
      #createdb Billboard &&\
-RUN     $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+RUN     $PSQL -h localhost "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
