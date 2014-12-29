@@ -74,7 +74,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      #$PSQL "DROP SCHEMA public;" 
      
 ADD repmgr.conf $PGREP/repmgr.conf
-#RUN repmgr -f $PGREP/repmgr.conf --verbose master register &&\
+RUN repmgr -f $PGREP/repmgr.conf --verbose master register 
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
      
      
