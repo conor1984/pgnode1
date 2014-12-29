@@ -41,20 +41,20 @@ RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; r
 
 USER maximus
 RUN	 cd /var/lib/postgresql/9.4 &&\
-	 pg_createcluster -p 5432 9.4 cluster &&\
+	 pg_createcluster 9.4 cluster &&\
 #	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
 #	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
 #	 chmod go-rwx ~/.ssh/* &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
-     pg_ctl start -p 5432 -l $PGLOG/postgresql-9.4-cluster.log &&\
+     pg_ctl start -l $PGLOG/postgresql-9.4-cluster.log &&\
      #fails without next line
      #sleep 18 &&\
-     #createdb Repmgr &&\
+     createdb -p 5433 Repmgr #&&\
      #createdb Billboard &&\
-     $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
-     $PSQL "CREATE DATABASE Repmgr;" 
+     #$PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
+     #$PSQL "CREATE DATABASE Repmgr;" 
  #    $PSQL "DROP SCHEMA public;" &&\
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
  #    repmgr -f $PGREP/repmgr.conf --verbose master register &&\
