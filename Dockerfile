@@ -67,7 +67,7 @@ RUN	/etc/init.d/postgresql start &&\
 #cd ~ &&\
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
-	 /etc/init.d/postgresql start &&\
+	 #/etc/init.d/postgresql start &&\
 	 #mkdir $PGHOME/.ssh  &&\
 	 #ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
 	 #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
