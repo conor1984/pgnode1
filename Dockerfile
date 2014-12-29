@@ -63,7 +63,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
      #/etc/init.d/postgresql start &&\
-     pg_ctlcluster -l $PGLOG/logtest.log 9.4 main start  &&\
+     pg_ctlcluster  9.4 main start --l $PGLOG/logtest.log &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
      #createdb Repmgr &&\
      #createdb Billboard &&\
