@@ -55,7 +55,7 @@ RUN  mkdir /etc/postgresql/9.4/cluster
 
 #Log issue fix (not working)
 #ADD pg_ctl.conf $PGCONFIG/pg_ctl.conf
-RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
+RUN   chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
 #/etc/init.d #&&\
      #sudo chmod 751 $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc/init.d
 
