@@ -77,7 +77,8 @@ ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
 RUN	 pg_createcluster -c /home/maximus/cluster -s /home/maximus/sockets -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster &&\
 #&&\
-         pg_ctlcluster  9.4 cluster start  &&\
+         pg_ctlcluster  9.4 cluster start  
+EXPOSE 5433 6432 22
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
 	 #/etc/init.d/postgresql start &&\
@@ -93,7 +94,7 @@ RUN	 pg_createcluster -c /home/maximus/cluster -s /home/maximus/sockets -d /home
      #-l $PGLOG/postgresql-9.4-main.log &&\
     # createdb Repmgr &&\
      #createdb Billboard &&\
-     $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+RUN     $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
@@ -115,6 +116,6 @@ ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
-EXPOSE 5433 6432 22
+
 VOLUME  ["/home/maximus"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/home/maximus/cluster/data", "-c", "config_file=/home/maximus/cluster/postgresql.conf"]
