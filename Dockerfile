@@ -55,12 +55,11 @@ mailutils
 RUN  chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA 
 #$PGRUN
 
-USER postgres
-
-RUN	/etc/init.d/postgresql reload
+	
 
 USER maximus
-RUN	 mkdir $PGHOME/.ssh  &&\
+RUN	 /etc/init.d/postgresql reload &&\
+	 mkdir $PGHOME/.ssh  &&\
 	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
 	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
 	 chmod go-rwx $PGHOME/.ssh/* &&\
