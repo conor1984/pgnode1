@@ -79,8 +79,8 @@ RUN	 #cd ~ &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
      createdb Repmgr &&\
      #createdb Billboard &&\
-     #$PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
-     #$PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
+     $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
+    $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
      mkdir $PGHOME/scripts
