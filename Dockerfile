@@ -71,8 +71,9 @@ RUN	 mkdir /home/maximus/logs/ &&\
 ADD postgresql.conf /home/maximus/cluster/postgresql.conf
 ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
-RUN	 pg_createcluster -s /sockets/ -D ~/cluster/data -l /logs/cluster.log 9.4 cluster &&\
-         pg_ctlcluster start &&\
+RUN	 pg_createcluster -s /sockets/ -D ~/cluster/data -l /logs/cluster.log 9.4 cluster
+#&&\
+        # pg_ctlcluster start &&\
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
 	 #/etc/init.d/postgresql start &&\
@@ -86,13 +87,13 @@ RUN	 pg_createcluster -s /sockets/ -D ~/cluster/data -l /logs/cluster.log 9.4 cl
      #/etc/init.d/postgresql start &&\
      #pg_ctlcluster  9.4 main start  &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
-     createdb Repmgr &&\
+    # createdb Repmgr &&\
      #createdb Billboard &&\
-     $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
-     $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
+    # $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
+    # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
-     mkdir $PGHOME/scripts
+    # mkdir $PGHOME/scripts
      #$PSQL "DROP SCHEMA public;" 
      
 ADD repmgr.conf $PGREP/repmgr.conf
