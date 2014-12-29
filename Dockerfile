@@ -68,7 +68,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      #pg_ctlcluster  9.4 main start -- &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
      #createdb Repmgr &&\
-     #createdb Billboard &&\
+     createdb Billboard &&\
      $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
