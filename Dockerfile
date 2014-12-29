@@ -4,7 +4,7 @@ FROM ubuntu:14.04
 #MAINTAINER conor.nagle@firmex.com
 
 #Environment 
-#ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin
+ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin
 ENV PGDATA		/var/lib/postgresql/9.4/main
 ENV PGCONFIG	/etc/postgresql/9.4/main
 ENV PGBOUNCE    /etc/pcgbouncer
@@ -63,7 +63,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
      #/etc/init.d/postgresql start &&\
-     pg_ctl start -l $PGLOG/postgresql-9.4-main.log &&\
+     pg_ctlcluster start -l $PGLOG/postgresql-9.4-main.log &&\
      #createdb Repmgr &&\
      #createdb Billboard &&\
      $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
