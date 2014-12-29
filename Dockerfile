@@ -13,7 +13,7 @@ ENV PGREP		/etc/postgresql/9.4/repmgr
 ENV PGHOME		/var/lib/postgresql
 ENV PGRUN               /var/run/postgresql
 #ENV PGLOG		/var/log/postgresql/pglog.log
-ENV PSQL        psql -h localhost --command 
+ENV PSQL        psql -h localhost -p 5433 --command 
 
 
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
