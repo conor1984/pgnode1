@@ -77,7 +77,7 @@ ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
 RUN	 pg_createcluster -c /home/maximus/cluster -s /home/maximus/sockets -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster &&\
 #&&\
-         pg_ctlcluster -p 5433 9.4 cluster start &&\
+         pg_ctlcluster  9.4 cluster start  -p 5433 &&\
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
 	 #/etc/init.d/postgresql start &&\
