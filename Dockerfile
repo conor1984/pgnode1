@@ -5,8 +5,8 @@ FROM ubuntu:14.04
 
 #Environment 
 ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin:/usr/bin/pgbench
-ENV PGDATA1		/var/lib/postgresql/9.4/main
-ENV PGCONFIG1	/etc/postgresql/9.4/main
+ENV PGDATA		/var/lib/postgresql/9.4/main
+ENV PGCONFIG	/etc/postgresql/9.4/main
 ENV PGBOUNCE    /etc/pcgbouncer
 ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
@@ -21,9 +21,9 @@ RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044
 
 RUN sudo apt-get update &&\
     sudo apt-get upgrade &&\
-    sudo apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 \
-	 libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
-	 pgbouncer repmgr 
+    sudo apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 
+	 #libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
+	 #pgbouncer repmgr 
 #USER postgres
 #RUN  pg_ctl stop &&\
  #    cd /var/lib/postgresql/9.4 &&\
