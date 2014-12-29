@@ -63,15 +63,18 @@ RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc
 #RUN	 rm /var/lib/postgresql/9.4/main/postmaster.pid 
 	 
 USER maximus
-RUN	 /etc/init.d/postgresql stop &&\
-	 mkdir $PGHOME/.ssh  &&\
-	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
-	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
-	 chmod go-rwx $PGHOME/.ssh/* &&\
+RUN	 cd ~ &&\
+	 echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
+	 . ~/.pam_environment &&\ 
+	 /etc/init.d/postgresql start &&\
+	 #mkdir $PGHOME/.ssh  &&\
+	 #ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
+	 #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
+	 #chmod go-rwx $PGHOME/.ssh/* &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
-     /etc/init.d/postgresql start &&\
+     #/etc/init.d/postgresql start &&\
      #pg_ctlcluster  9.4 main start  &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
      #createdb Repmgr &&\
