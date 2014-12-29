@@ -50,9 +50,9 @@ run	chown maximus /var/run/postgresql/
 USER maximus
 RUN	 #cd /var/lib/postgresql/9.4 &&\
 	 #pg_createcluster 9.4 cluster &&\
-#	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
-#	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
-#	 chmod go-rwx ~/.ssh/* &&\
+	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
+	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
+	 chmod go-rwx ~/.ssh/* &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
@@ -61,10 +61,10 @@ RUN	 #cd /var/lib/postgresql/9.4 &&\
      #createdb Billboard &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      $PSQL "CREATE DATABASE Repmgr;" &&\ 
- #    $PSQL "DROP SCHEMA public;" &&\
+     $PSQL "DROP SCHEMA public;" &&\
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
- #    repmgr -f $PGREP/repmgr.conf --verbose master register &&\
-      mkdir $PGHOME/scripts
+     repmgr -f $PGREP/repmgr.conf --verbose master register &&\
+     mkdir $PGHOME/scripts
 
 
 ADD postgresql.conf /etc/postgresql/9.4/main/postgresql.conf
