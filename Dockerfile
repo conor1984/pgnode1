@@ -26,8 +26,11 @@ RUN sudo apt-get update &&\
 	 pgbouncer repmgr #pgbench pgadmin zabbix-server-pgsql zabbix-frontend-php
 	
 USER postgres
-RUN  cd /var/lib/postgresql/9.4 &&\
-     rm -rf *
+RUN  pg_ctl stop
+     cd /var/lib/postgresql/9.4 &&\
+     rm -rf * &&\
+     cd /var/run/postgresql &&\
+     rm -rf * 
      
 USER root
 RUN     adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
@@ -52,7 +55,7 @@ RUN	 cd /var/lib/postgresql/9.4 &&\
      pg_ctl start -l $PGLOG/postgresql-9.4-cluster.log #&&\
      #fails without next line
      #sleep 18 &&\
-     #createdb -p 5433 Repmgr #&&\
+     createdb -p 5433 Repmgr #&&\
      #createdb Billboard &&\
      #$PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" 
