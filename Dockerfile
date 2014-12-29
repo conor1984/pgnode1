@@ -21,7 +21,7 @@ RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044
 RUN sudo apt-get install -y libxslt1-dev \
 libxml2-dev \
 libedit-dev \
-libpam-dev \
+#libpam-dev \
 python-software-properties \
 software-properties-common \
 postgresql-9.4 \
@@ -31,7 +31,7 @@ libxslt1-dev \
 libxml2-dev \ 
 libedit-dev \
 pgbouncer \
-repmgr \
+#repmgr \
 openssh-server
 
 USER postgres
