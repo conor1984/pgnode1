@@ -55,7 +55,9 @@ mailutils
 RUN  chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
 
 USER postgres
-	/etc/init.d/postgresql reload
+
+RUN	/etc/init.d/postgresql reload
+
 USER maximus
 RUN	 mkdir $PGHOME/.ssh  &&\
 	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
