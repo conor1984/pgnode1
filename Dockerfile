@@ -37,7 +37,8 @@ openssh-server
 
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
-	sudo chown -R maximus:maximus $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ $PGRUN
+	sudo chown -R maximus:maximus /var/lib/postgresql/9.4/main
+	#$PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ $PGRUN
 
 #workaround (maybe not required)
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
