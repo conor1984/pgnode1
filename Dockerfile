@@ -19,29 +19,18 @@ USER root
 RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 &&\
 	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-RUN #sudo apt-get update &&\
-    #sudo apt-get upgrade &&\
-    #sudo apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 
-	 #libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
-	 #pgbouncer repmgr 
-	 apt-get update && apt-get upgrade &&\
-	 apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4
+RUN apt-get update && apt-get upgrade &&\
+	 apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 \
+	 libxslt-dev libxml2-dev libpam-dev libedit-dev git expect wget \
+	 pgbouncer repmgr 
+	 
 
-
-#USER postgres
-#RUN  pg_ctl stop &&\
- #    cd /var/lib/postgresql/9.4 &&\
- #    rm -rf * &&\
- #    cd /var/run/postgresql &&\
-#     rm -rf * 
-     
 USER root
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd #&&\
-	#usermod -d /var/lib/postgresql maximus &&\
-	#sudo chown maximus #$PGHOME/ # $PGLOG/ $PGCONFIG/ $PGDATA/ /var/run/postgresql/
+	sudo chown maximus #$PGHOME/ # $PGLOG/ $PGCONFIG/ $PGDATA/ /var/run/postgresql/
 #user postgres	
-run	chown maximus /var/run/postgresql/
+#run	chown maximus /var/run/postgresql/
 	
 	
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
