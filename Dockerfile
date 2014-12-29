@@ -53,7 +53,7 @@ mailutils
 #ssh-keygen -t rsa -f  var/lib/.ssh/id_rsa -q -N ""  &&\
 
 
-ADD pg_ctl.conf $PGCONFIG
+ADD pg_ctl.conf $PGCONFIG/pg_ctl.conf
 
 USER postgres
 RUN	 mkdir $PGHOME/.ssh  &&\
