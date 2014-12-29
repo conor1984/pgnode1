@@ -41,16 +41,16 @@ RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; r
 
 USER maximus
 RUN	 cd /var/lib/postgresql/9.4 &&\
-	 pg_createcluster -p 5433 9.4 cluster &&\
+	 pg_createcluster -p 5432 9.4 cluster &&\
 #	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
 #	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
 #	 chmod go-rwx ~/.ssh/* &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
-     pg_ctl start -p 5433 -l $PGLOG/postgresql-9.4-cluster.log &&\
+     pg_ctl start -p 5432 -l $PGLOG/postgresql-9.4-cluster.log &&\
      #fails without next line
-     sleep 18 &&\
+     #sleep 18 &&\
      #createdb Repmgr &&\
      #createdb Billboard &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
@@ -70,5 +70,5 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-EXPOSE 5433 6432
+EXPOSE 5432 6432
 CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/cluster", "-c", "config_file=/etc/postgresql/9.4/cluster/postgresql.conf"]
