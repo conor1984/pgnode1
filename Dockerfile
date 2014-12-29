@@ -35,6 +35,10 @@ pgbouncer \
 repmgr \
 openssh-server
 
+USER postgres
+RUN     pg_ctl stop
+
+USER root
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
 	sudo chown -R maximus:maximus /var/lib/postgresql/9.4/main
