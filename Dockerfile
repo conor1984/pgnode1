@@ -112,4 +112,4 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
 VOLUME  ["/home/maximus"]
-CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/home/maximus/cluster/data", "-c", "config_file=/home/maximus/cluster/postgresql.conf"]
+#CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/home/maximus/cluster/data", "-c", "config_file=/home/maximus/cluster/postgresql.conf"]
