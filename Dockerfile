@@ -40,7 +40,7 @@ RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; r
     mkdir /etc/postgresql/9.4/repmgr 
 
 USER maximus
-RUN	 cd /var/lib/postgresql/9.4 &&
+RUN	 cd /var/lib/postgresql/9.4 &&\
 	 pg_createcluster 9.4 cluster &&\
 #	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
 #	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
