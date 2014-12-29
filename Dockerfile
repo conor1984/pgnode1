@@ -38,7 +38,7 @@ USER root
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
 	#usermod -d /var/lib/postgresql maximus &&\
-	sudo chown -R maximus $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ /var/run/postgresql/
+	sudo chown maximus $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ /var/run/postgresql/
 	
 	
 	
