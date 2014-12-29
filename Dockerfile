@@ -64,7 +64,8 @@ RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
 #RUN	 rm /var/lib/postgresql/9.4/main/postmaster.pid 
 	 
 USER maximus
-RUN	 mkdir /home/maximus/logs/ &&\
+RUN	 cd /home/maximus &&\
+         mkdir /home/maximus/logs/ &&\
 	 mkdir /home/maximus/cluster/ &&\
 	 mkdir /home/maximus/cluster/data &&\
 	 mkdir /home/maximus/sockets/ 
