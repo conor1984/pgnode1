@@ -58,8 +58,7 @@ RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
 	
 
 USER postgres
-RUN	 cd $PGDATA &&\
-	 rm postmaster.pid 
+RUN	 rm /var/lib/postgresql/9.4/main/postmaster.pid 
 	 
 USER maximus
 	 #/etc/init.d/postgresql reload &&\
