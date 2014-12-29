@@ -57,9 +57,11 @@ RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
 
 	
 
-USER maximus
+USER postgres
 RUN	 cd $PGDATA &&\
-	 rm postmaster.pid &&\
+	 rm postmaster.pid 
+	 
+USER maximus
 	 #/etc/init.d/postgresql reload &&\
 	 mkdir $PGHOME/.ssh  &&\
 	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
