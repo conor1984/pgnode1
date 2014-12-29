@@ -37,13 +37,13 @@ RUN apt-get update && apt-get install -y python-software-properties software-pro
 #repmgr \
 #openssh-server
 
-USER postgres
-RUN     #pg_ctl stop
-	/etc/init.d/postgresql stop
+#USER postgres
+#RUN     #pg_ctl stop
+	#/etc/init.d/postgresql stop
 USER root
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
-	echo "maximus:max" | chpasswd &&\
-	sudo chown -R maximus:maximus /var/lib/postgresql/9.4/main
+	echo "maximus:max" | chpasswd #&&\
+	#sudo chown -R maximus:maximus /var/lib/postgresql/9.4/main
 	#$PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ $PGRUN
 
 #workaround (maybe not required)
@@ -53,7 +53,7 @@ RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone"
 
 
 
-USER maximus
+USER postgres
 RUN	 mkdir $PGHOME/.ssh  &&\
 	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
 	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
@@ -61,8 +61,8 @@ RUN	 mkdir $PGHOME/.ssh  &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
-     #/etc/init.d/postgresql start &&\
-     pg_ctl start -l $PGLOG/postgresql-9.4-main.log &&\
+     /etc/init.d/postgresql start &&\
+     #pg_ctl start -l $PGLOG/postgresql-9.4-main.log &&\
      createdb Repmgr &&\
      #createdb Billboard &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
@@ -73,8 +73,8 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      mkdir $PGHOME/scripts
 
 
-ADD postgresql.conf $PGDATA/postgresql.conf
-ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
+ADD postgresql.conf $PGCONFIG/postgresql.conf
+ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD repmgr.conf $PGREP/repmgr.conf
 ADD userlist.txt $PGBOUNCE/userlist.txt
@@ -83,4 +83,4 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 #RUN chmod +x /usr/local/bin/run
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 EXPOSE 5432  6432
-#CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
