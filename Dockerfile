@@ -32,7 +32,7 @@ USER root
 RUN     adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
 	usermod -d /var/lib/postgresql maximus &&\
-	sudo chown -R maximus $PGHOME  $PGLOG /etc/postgresql/9.4 /var/lib/postgresql/9.4
+	sudo chown -R maximus $PGHOME  $PGLOG /etc/postgresql /var/lib/postgresql /var/run/postgresql
 	
 	
 	
@@ -48,7 +48,7 @@ RUN	 cd /var/lib/postgresql/9.4 &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
-     pg_ctl start -l $PGLOG/postgresql-9.4-main.log &&\
+     pg_ctl start -l $PGLOG/postgresql-9.4-cluster.log &&\
      createdb Repmgr #&&\
  #    createdb Billboard &&\
  #    $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
@@ -58,8 +58,8 @@ RUN	 cd /var/lib/postgresql/9.4 &&\
  #    mkdir ~/scripts
 
 
-ADD postgresql.conf /etc/postgresql/9.4/main/postgresql.conf
-ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
+ADD postgresql.conf /etc/postgresql/9.4/cluster/postgresql.conf
+ADD pg_hba.conf /etc/postgresql/9.4/cluster/pg_hba.conf
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD repmgr.conf $PGREP/repmgr.conf
 ADD userlist.txt $PGBOUNCE/userlist.txt
@@ -68,4 +68,4 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 #RUN chmod +x /usr/local/bin/run
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 EXPOSE 5432 6432
-CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/cluster", "-c", "config_file=/etc/postgresql/9.4/cluster/postgresql.conf"]
