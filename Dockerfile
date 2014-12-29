@@ -82,6 +82,7 @@ ADD repmgr.conf $PGREP/repmgr.conf
 
 ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
+ADD .pgpass  $PGHOME/.pgpass
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
