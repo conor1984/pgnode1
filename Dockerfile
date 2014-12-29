@@ -41,12 +41,9 @@ RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone"
 #workaround (maybe not required)
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
     #mkdir /etc/postgresql/9.4/repmgr 
-
+#ssh-keygen -t rsa -f  var/lib/.ssh/id_rsa -q -N ""  &&\
 USER maximus
-RUN	 ssh-keygen -t rsa #-f 
-	 #$PGHOME/.ssh/id_rsa -q -N ""  &&\
-	 "\r" &&\
-	 "\r" &&\
+RUN	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
 	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
 	 chmod go-rwx $PGHOME/.ssh/* &&\
 	 #cd ~/.ssh &&\
