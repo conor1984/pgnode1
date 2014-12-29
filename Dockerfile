@@ -11,15 +11,13 @@ ENV PGBOUNCE    /etc/pcgbouncer
 ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
 ENV PGHOME		/var/lib/postgresql
-#ENV PGPORT	5433
+ENV PGRUN               /var/run/postgresql
 ENV PSQL        psql --command 
 
 USER root
-
 RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 &&\
 	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-#RUN apt-get update && apt-get upgrade &&\
 RUN  apt-get update && apt-get install -y libxslt1-dev \
 libxml2-dev \
 libedit-dev \
@@ -35,21 +33,16 @@ libedit-dev \
 pgbouncer \
 repmgr 
 
-	 
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
-	echo "maximus:max" | chpasswd #&&\
-	sudo chown maximus #$PGHOME/ # $PGLOG/ $PGCONFIG/ $PGDATA/ /var/run/postgresql/
-#user postgres	
-#run	chown maximus /var/run/postgresql/
-	
-	
+	echo "maximus:max" | chpasswd &&\
+	sudo chown -R maximus $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ $PGRUN/
+
+#workaround (maybe not required)
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
     #mkdir /etc/postgresql/9.4/repmgr 
 
 USER maximus
-RUN	 #cd /var/lib/postgresql/9.4 &&\
-	 #pg_createcluster 9.4 cluster &&\
-	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
+RUN	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
 	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
 	 chmod go-rwx ~/.ssh/* &&\
 	 #cd ~/.ssh &&\
