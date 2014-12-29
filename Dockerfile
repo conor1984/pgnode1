@@ -69,7 +69,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      $PSQL "CREATE DATABASE Repmgr;" &&\ 
      $PSQL "DROP SCHEMA public;" &&\
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
-     repmgr -f $PGREP/repmgr.conf --verbose master register &&\
+     
      mkdir $PGHOME/scripts
 
 
@@ -77,10 +77,13 @@ ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD repmgr.conf $PGREP/repmgr.conf
+
+
+RUN repmgr -f $PGREP/repmgr.conf --verbose master register 
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-EXPOSE 5432  6432
+EXPOSE 5432  6432  22
 CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
