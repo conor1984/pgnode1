@@ -18,7 +18,7 @@ ENV PSQL        psql --command
 RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 &&\
 	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-RUN apt-get update && apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4
+RUN apt-get update && apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 openssh-server
 
 #RUN sudo apt-get install -y libxslt1-dev \
 #libxml2-dev \
@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y python-software-properties software-pro
 #libedit-dev \
 #pgbouncer \
 #repmgr \
-openssh-server
+#openssh-server
 
 USER postgres
 RUN     #pg_ctl stop
