@@ -64,7 +64,7 @@ RUN	 mkdir $PGHOME/.ssh  &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
      /etc/init.d/postgresql start &&\
      #pg_ctl start -l $PGLOG/postgresql-9.4-main.log &&\
-     createdb Repmgr &&\
+     #createdb Repmgr &&\
      #createdb Billboard &&\
      $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
@@ -74,7 +74,8 @@ RUN	 mkdir $PGHOME/.ssh  &&\
      #$PSQL "DROP SCHEMA public;" 
      
 ADD repmgr.conf $PGREP/repmgr.conf
-RUN repmgr -f $PGREP/repmgr.conf --verbose master register 
+#RUN    repmgr -D $PGDATA -d Billboard -p 5432 -U repmgr -R postgres --verbose standby clone pgnode1 
+#RUN 	repmgr -f $PGREP/repmgr.conf --verbose master register 
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
      
      
