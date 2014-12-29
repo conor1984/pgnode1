@@ -39,10 +39,10 @@ RUN apt-get update &&\
 #libxslt1-dev \
 #libxml2-dev \ 
 #libedit-dev \
-pgbouncer \
-repmgr \
-sendmail \
-mailutils
+#pgbouncer \
+#repmgr \
+#sendmail \
+#mailutils
 
 
 #USER postgres
@@ -76,7 +76,7 @@ RUN	 cd /home/maximus &&\
 ADD postgresql.conf /home/maximus/cluster/postgresql.conf
 ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
-#RUN	 pg_createcluster --start -p 5433 -c /home/maximus/cluster -s /tmp -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster 
+RUN	 pg_createcluster --start -p 5433 -c /home/maximus/cluster -s /tmp -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster 
 #&&\
         # pg_ctlcluster  9.4 cluster start  
 EXPOSE 5433 6432 22
@@ -95,7 +95,7 @@ EXPOSE 5433 6432 22
      #-l $PGLOG/postgresql-9.4-main.log &&\
     # createdb Repmgr &&\
      #createdb Billboard &&\
-#RUN     $PSQL  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+RUN     $PSQL  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
