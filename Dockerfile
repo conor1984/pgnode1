@@ -35,7 +35,7 @@ repmgr
 
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd &&\
-	sudo chown -R maximus $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ $PGRUN/
+	sudo chown -R maximus $PGHOME/  $PGLOG/ $PGCONFIG/ $PGDATA/ $PGRUN
 
 #workaround (maybe not required)
 #RUN sudo mkdir /etc/ssl/private-copy #; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
@@ -43,8 +43,8 @@ RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone"
 
 USER maximus
 RUN	 ssh-keygen -t rsa -f $PGHOME/.ssh/id_rsa -q -N "" &&\
-	 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&\
-	 chmod go-rwx ~/.ssh/* &&\
+	 cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
+	 chmod go-rwx $PGHOME/.ssh/* &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
