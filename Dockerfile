@@ -14,7 +14,7 @@ ENV PGHOME		/var/lib/postgresql
 ENV PGRUN               /var/run/postgresql
 ENV PSQL        psql --command 
 
-USER root
+#USER root
 RUN 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 &&\
 	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
