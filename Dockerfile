@@ -76,9 +76,9 @@ RUN	 cd /home/maximus &&\
 ADD postgresql.conf /home/maximus/cluster/postgresql.conf
 ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
-RUN	 pg_createcluster -c /home/maximus/cluster -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster &&\
+RUN	 pg_createcluster --start -c /home/maximus/cluster -s /tmp -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster &&\
 #&&\
-         pg_ctlcluster  9.4 cluster start  
+        # pg_ctlcluster  9.4 cluster start  
 EXPOSE 5433 6432 22
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
