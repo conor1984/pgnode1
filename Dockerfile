@@ -16,7 +16,7 @@ ENV PGRUN               /var/run/postgresql
 #ENV PSQL        psql -h localhost -p 5433 --command 
 
 
-RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
+RUN     adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd 
 	#sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
 	
