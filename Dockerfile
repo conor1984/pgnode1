@@ -13,7 +13,7 @@ ENV PGREP		/etc/postgresql/9.4/repmgr
 ENV PGHOME		/var/lib/postgresql
 ENV PGRUN               /var/run/postgresql
 #ENV PGLOG		/var/log/postgresql/pglog.log
-ENV PSQL        psql -h localhost -p 5433 --command 
+#ENV PSQL        psql -h localhost -p 5433 --command 
 
 
 RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
@@ -95,7 +95,7 @@ EXPOSE 5433 6432 22
      #-l $PGLOG/postgresql-9.4-main.log &&\
     # createdb Repmgr &&\
      #createdb Billboard &&\
-RUN     $PSQL  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+RUN    psql -h localhost -p 5433 --command  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
