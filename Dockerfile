@@ -48,7 +48,7 @@ RUN	 cd /var/lib/postgresql/9.4 &&\
 	 #cd ~/.ssh &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgnode2: &&\
 	 ######scp id_rsa.pub id_rsa authorized_keys maximus@pgbouncer: &&\ 
-     pg_ctl start -l $PGLOG/postgresql-9.4-cluster.log &&\
+     pg_ctl start -p 5433 -l $PGLOG/postgresql-9.4-cluster.log &&\
      createdb Repmgr &&\
      createdb Billboard &&\
      $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" #&&\
