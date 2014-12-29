@@ -44,7 +44,7 @@ RUN     sudo adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone"
 run	chown maximus /var/run/postgresql/
 	
 	
-RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
+RUN sudo mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R maximus /etc/ssl/private &&\
     mkdir /etc/postgresql/9.4/repmgr 
 
 USER maximus
