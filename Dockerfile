@@ -52,7 +52,7 @@ mailutils
 
 #Log issue fix (not working)
 #ADD pg_ctl.conf $PGCONFIG/pg_ctl.conf
-RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc/init.d #&&\
+#RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc/init.d #&&\
      #sudo chmod 751 $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc/init.d
 
 #$PGRUN
@@ -63,9 +63,18 @@ RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc
 #RUN	 rm /var/lib/postgresql/9.4/main/postmaster.pid 
 	 
 USER maximus
-RUN	cd $PGDATA &&\
-/etc/init.d/postgresql start &&\
-#cd ~ &&\
+RUN	 cd ~ &&\ 
+	 mkdir /etc/ &&\
+	 mkdir /logs/ &&\
+	 mkdir /cluster/ &&\
+	 mkdir /cluster/data &&\
+	 mkdir /sockets/ 
+
+ADD postgresql.conf /home/maximus/cluster/postgresql.conf
+ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
+
+RUN	 pg_createcluster -s /sockets/ -D ~/cluster/data -l /logs/cluster.log 9.4 cluster &&\
+         pg_ctlcluster start &&\
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
 	 #/etc/init.d/postgresql start &&\
@@ -82,7 +91,7 @@ RUN	cd $PGDATA &&\
      createdb Repmgr &&\
      #createdb Billboard &&\
      $PSQL "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'" &&\
-    $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
+     $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
      mkdir $PGHOME/scripts
@@ -96,14 +105,12 @@ ADD repmgr.conf $PGREP/repmgr.conf
      
 
 ADD addsudo.sh $PGCONFIG/addsudo.sh
-ADD postgresql.conf $PGCONFIG/postgresql.conf
-ADD pg_hba.conf $PGCONFIG/pg_hba.conf
+
 ADD .pgpass  $PGHOME/.pgpass
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-EXPOSE 5432  6432  22
-CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
+VOLUME  ["/home/maximus"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/home/maximus/cluster/data", "-c", "config_file=/home/maximus/cluster/postgresql.conf"]
