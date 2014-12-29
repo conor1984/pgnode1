@@ -63,7 +63,8 @@ RUN  sudo chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc
 #RUN	 rm /var/lib/postgresql/9.4/main/postmaster.pid 
 	 
 USER maximus
-RUN	 #cd ~ &&\
+RUN	/etc/init.d/postgresql start &&\
+#cd ~ &&\
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
 	 /etc/init.d/postgresql start &&\
