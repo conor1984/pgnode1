@@ -87,7 +87,7 @@ RUN	 pg_createcluster -p 5434 -s /home/maximus/socketsandstats -d /home/maximus/
 	 #sed -i 's/localhost/*/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
 	# postgres -D /home/maximus/cluster/data
          pg_ctlcluster  9.4 cluster start  
-EXPOSE  5434 6432 22
+EXPOSE  5432 5434 6432 22
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
 	 #/etc/init.d/postgresql start &&\
