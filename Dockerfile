@@ -86,7 +86,7 @@ RUN	 cp /etc/postgresql/9.4/cluster/postgresql.conf /home/maximus/cluster/data/p
 	 sed -i 's/#listen_addresses/listen_addresses/g' /etc/postgresql/9.4/cluster/postgresql.conf  &&\
 	 sed -i 's/localhost/*/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
 	# postgres -D /home/maximus/cluster/data
-RUN         pg_ctlcluster  9.4 cluster start  
+         pg_ctlcluster  9.4 cluster start  
 
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
