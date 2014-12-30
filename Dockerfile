@@ -6,7 +6,7 @@ FROM ubuntu:14.04
 #Environment 
 ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin
 ENV PGDATA		/var/lib/postgresql/9.4/main
-ENV PGCONFIG	/etc/postgresql/9.4/main
+ENV PGCONFIG	/etc/postgresql/9.4/
 ENV PGBOUNCE    /etc/pcgbouncer
 ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
