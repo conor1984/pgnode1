@@ -80,13 +80,13 @@ RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/
 	 
 	 #echo unix_socket_directories = '/home/maximus/sockets/'  >> /etc/postgresql/9.4/cluster/postgresql.conf
 	 #echo stats_temp_directory = '/home/maximus/sockets/' >> /etc/postgresql/9.4/cluster/postgresql.conf
-	 cp /etc/postgresql/9.4/cluster/postgresql.conf /home/maximus/cluster/data/postgresql.conf &&\
+	 #cp /etc/postgresql/9.4/cluster/postgresql.conf /home/maximus/cluster/data/postgresql.conf &&\
 	 #sed -i 's/var\/run/home\/maximus\/socketsandstats/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
 	 #sed -i 's/#listen_addresses/listen_addresses/g' /etc/postgresql/9.4/cluster/postgresql.conf  &&\
 	 #sed -i 's/localhost/*/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
 	# postgres -D /home/maximus/cluster/data
          pg_ctlcluster  9.4 cluster start  
-EXPOSE  5435 6432 22
+
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
 	 #/etc/init.d/postgresql start &&\
@@ -100,9 +100,9 @@ EXPOSE  5435 6432 22
      #/etc/init.d/postgresql start &&\
      #pg_ctlcluster  9.4 main start  &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
-     createdb -p 5435 -h /home/maximus/socketsandstats Repmgr  
+     #createdb -p 5435 -h /home/maximus/socketsandstats Repmgr  
      #createdb Billboard &&\
-#RUN    psql  -p 5435 -h /home/maximus/socketsandstats --command  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+RUN    psql  -h /home/maximus/socketsandstats -p 5435  --command  "CREATE DATABASE docker;"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
@@ -115,7 +115,7 @@ EXPOSE  5435 6432 22
 #RUN 	repmgr -f $PGREP/repmgr.conf --verbose master register 
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
      
-     
+ 
 ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
@@ -126,6 +126,6 @@ ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
-
+EXPOSE  5435 6432 22    
 VOLUME  ["/home/maximus"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/home/maximus/cluster/data", "-c", "config_file=/home/maximus/cluster/postgresql.conf"]
