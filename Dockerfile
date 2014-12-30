@@ -46,6 +46,7 @@ RUN    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
     #mkdir $PGDATA/repmgr 
 
 #RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
+ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
@@ -54,7 +55,7 @@ ADD .pgpass  $PGHOME/.pgpass
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
-ADD postgresql.conf $PGCONFIG/postgresql.conf
+
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
 EXPOSE  5432 6432 22
