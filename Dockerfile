@@ -25,8 +25,7 @@ RUN apt-get update &&\
     pgbouncer \
     repmgr 
 
-# Note: The official Debian and Ubuntu images automatically ``apt-get clean``
-# after each ``apt-get``
+RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
