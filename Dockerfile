@@ -67,4 +67,4 @@ VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 # Set the default command to run when starting the container
 
 #"/usr/local/pgsql/bin/pg_ctl start -l logfile -D /usr/local/pgsql/data"
-CMD ["/usr/lib/postgresql/9.4/bin/pg_ctl", "-D", "/var/lib/postgresql/9.4/main", "-c",  "-l", "/var/log/postgresql/logg.log", "start"]
+CMD ["/usr/lib/postgresql/9.4/bin/pg_ctl", "-D", "/var/lib/postgresql/9.4/main", "-c",   "start"]
