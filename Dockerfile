@@ -100,9 +100,9 @@ EXPOSE  5435 6432 22
      #/etc/init.d/postgresql start &&\
      #pg_ctlcluster  9.4 main start  &&\
      #-l $PGLOG/postgresql-9.4-main.log &&\
-    # createdb Repmgr &&\
+     createdb -p 5435 -h /home/maximus/socketsandstats Repmgr  
      #createdb Billboard &&\
-RUN    psql  -p 5435 -h /home/maximus/socketsandstats --command  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+#RUN    psql  -p 5435 -h /home/maximus/socketsandstats --command  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
