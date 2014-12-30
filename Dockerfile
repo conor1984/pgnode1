@@ -64,7 +64,7 @@ RUN  sudo mkdir /etc/postgresql/9.4/cluster &&\
 #$PGRUN
 USER postgres
 RUN	cd /var/run/postgresql/ &&\
-	rm *
+	rm .*
 	
 
 
