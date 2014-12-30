@@ -38,7 +38,9 @@ RUN    /etc/init.d/postgresql start &&\
     createdb -O docker docker &&\
     ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
     cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
-    chmod go-rwx $PGHOME/.ssh/*
+    chmod go-rwx $PGHOME/.ssh/* &&\
+    mkdir $PGDATA/repmgr &&\
+    repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
    
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
@@ -47,6 +49,7 @@ ADD .pgpass  $PGHOME/.pgpass
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
+ADD repmgr.conf $PGDATA/repmgr.conf
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
 EXPOSE  5432 6432 22
