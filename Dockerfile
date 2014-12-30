@@ -14,7 +14,7 @@ ENV PGHOME		/var/lib/postgresql
 ENV PGRUN               /var/run/postgresql
 #ENV PGLOG		/var/log/postgresql/pglog.log
 #ENV PSQL        psql -h localhost -p 5433 --command 
-
+#
 
 RUN     adduser maximus --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password &&\
 	echo "maximus:max" | chpasswd 
