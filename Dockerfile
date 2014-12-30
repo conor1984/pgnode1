@@ -76,8 +76,8 @@ RUN	 cd /home/maximus &&\
 	 mkdir /home/maximus/socketsandstats/ 
 
 
-RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster &&\
-	 
+RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster 
+ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf	 
 	 #echo unix_socket_directories = '/home/maximus/sockets/'  >> /etc/postgresql/9.4/cluster/postgresql.conf
 	 #echo stats_temp_directory = '/home/maximus/sockets/' >> /etc/postgresql/9.4/cluster/postgresql.conf
 	 #cp /etc/postgresql/9.4/cluster/postgresql.conf /home/maximus/cluster/data/postgresql.conf &&\
@@ -85,7 +85,7 @@ RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/
 	 #sed -i 's/#listen_addresses/listen_addresses/g' /etc/postgresql/9.4/cluster/postgresql.conf  &&\
 	 #sed -i 's/localhost/*/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
 	# postgres -D /home/maximus/cluster/data
-         pg_ctlcluster  9.4 cluster start  
+RUN         pg_ctlcluster  9.4 cluster start  
 
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
@@ -116,7 +116,7 @@ RUN    psql  -h /home/maximus/socketsandstats -p 5435  --command  "CREATE DATABA
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
      
  
-ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf
+
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
 
