@@ -40,9 +40,9 @@ RUN    /etc/init.d/postgresql start &&\
     cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
     chmod go-rwx $PGHOME/.ssh/* &&\
     mkdir $PGDATA/repmgr 
-ADD repmgr.conf $PGDATA/repmgr/repmgr.conf
-RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
-   
+
+#RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
+ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
 ADD postgresql.conf $PGCONFIG/postgresql.conf
