@@ -77,10 +77,11 @@ RUN	 cd /home/maximus &&\
 
 
 RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster 
-ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf	 
+#ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf	 
+ADD postgresql.conf /etc/postgresql/9.4/main/postgresql.conf	 
 	 #echo unix_socket_directories = '/home/maximus/sockets/'  >> /etc/postgresql/9.4/cluster/postgresql.conf
 	 #echo stats_temp_directory = '/home/maximus/sockets/' >> /etc/postgresql/9.4/cluster/postgresql.conf
-	 #cp /etc/postgresql/9.4/cluster/postgresql.conf /home/maximus/cluster/data/postgresql.conf &&\
+RUN	 cp /etc/postgresql/9.4/main/postgresql.conf /home/maximus/cluster/data/postgresql.conf 
 	 #sed -i 's/var\/run/home\/maximus\/socketsandstats/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
 	 #sed -i 's/#listen_addresses/listen_addresses/g' /etc/postgresql/9.4/cluster/postgresql.conf  &&\
 	 #sed -i 's/localhost/*/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
