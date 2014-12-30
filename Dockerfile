@@ -14,9 +14,11 @@ ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
 ENV PGHOME		/var/lib/postgresql
 ENV PGRUN       /var/run/postgresql
+ENV PSQL        psql --command 
+#ENV PGRUN               /var/run/postgresql
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 &&\
-	echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update &&\
     apt-get install -y python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 openssh-server  \
@@ -28,7 +30,6 @@ RUN apt-get update &&\
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
-
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
@@ -39,9 +40,8 @@ RUN    /etc/init.d/postgresql start &&\
     ssh-keygen -t rsa  &&\
     #-f $PGHOME/.ssh/id_rsa -q -N ""  &&\
     cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
-    chmod go-rwx $PGHOME/.ssh/* &&\
+    chmod go-rwx $PGHOME/.ssh/*
    
-
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
 ADD postgresql.conf $PGCONFIG/postgresql.conf
@@ -57,4 +57,4 @@ EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 # Set the default command to run when starting the container
-CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
