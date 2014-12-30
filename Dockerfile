@@ -34,7 +34,7 @@ USER postgres
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
-RUN    pg_ctlcluster 9.4 main start &&\
+RUN    pg_ctl  start &&\
     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
     createdb -O docker docker &&\
     pg_ctlcluster 9.4 main stop
@@ -67,4 +67,4 @@ VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 # Set the default command to run when starting the container
 
 #"/usr/local/pgsql/bin/pg_ctl start -l logfile -D /usr/local/pgsql/data"
-CMD ["/usr/lib/postgresql/9.4/bin/pg_ctl", "-D", "/var/lib/postgresql/9.4/main", "-c",   "start"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
