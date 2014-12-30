@@ -103,7 +103,7 @@ RUN	 cp /etc/postgresql/9.4/cluster/postgresql.conf /home/maximus/cluster/data/p
      #-l $PGLOG/postgresql-9.4-main.log &&\
      #createdb -p 5435 -h /home/maximus/socketsandstats Repmgr  
      #createdb Billboard &&\
-#RUN    psql  -h /home/maximus/socketsandstats -p 5435  --command  "CREATE DATABASE docker;"
+RUN    psql  -h /home/maximus/socketsandstats -p 5435  --command  "CREATE DATABASE docker;"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
