@@ -29,7 +29,7 @@ RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
-ADD postgresql.conf $PGDATA/postgresql.conf
+
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
@@ -54,7 +54,7 @@ ADD .pgpass  $PGHOME/.pgpass
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
-
+ADD postgresql.conf $PGCONFIG/postgresql.conf
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
 EXPOSE  5432 6432 22
