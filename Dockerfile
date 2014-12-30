@@ -74,8 +74,7 @@ RUN	 cd /home/maximus &&\
 	 mkdir /home/maximus/cluster/ &&\
 	 #mkdir /home/maximus/cluster/data &&\
 	 mkdir /home/maximus/socketsandstats/ 
-ADD postgresql.conf $PGCONFIG/postgresql.conf
-ADD pg_hba.conf $PGCONFIG/pg_hba.conf
+
 
 RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster &&\
 	 
@@ -117,7 +116,8 @@ RUN    psql  -p 5435 -h /home/maximus/socketsandstats --command  "CREATE USER do
      #automate this for many logical shards >> $PSQL "CREATE SCHEMA shard1;" &&\
      
      
-
+ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf
+ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
 
 ADD .pgpass  $PGHOME/.pgpass
