@@ -66,7 +66,7 @@ RUN  sudo  chown -R maximus:maximus  $PGCONFIG
 #RUN	rm /var/run/postgresql/*
 	
 
-
+ADD cluster.conf /home/maximus/postgresql.conf
 	 
 USER maximus
 RUN	 cd /home/maximus &&\
@@ -77,7 +77,7 @@ RUN	 cd /home/maximus &&\
 
 EXPOSE  5435 6432 22    
 RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster 
-ADD cluster.conf /home/maximus/cluster/data/postgresql.conf
+
 #ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf
  
 	 #echo unix_socket_directories = '/home/maximus/sockets/'  >> /etc/postgresql/9.4/cluster/postgresql.conf
