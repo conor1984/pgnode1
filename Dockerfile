@@ -29,12 +29,13 @@ RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
+ADD postgresql.conf $PGDATA/postgresql.conf
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
 RUN    pg_ctlcluster 9.4 main start 
-ADD postgresql.conf $PGDATA/postgresql.conf
+
    #cp $PGCONFIG/postgresql.conf $PGDATA/postgresql.conf
 #/etc/init.d/postgresql start &&\
 RUN    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
