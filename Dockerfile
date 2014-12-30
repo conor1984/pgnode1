@@ -40,7 +40,7 @@ RUN  pg_ctlcluster 9.4 main start &&\
     #pg_ctl  start &&\
     #cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf  &&\
     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
-    createdb -O docker docker &&\
+    createdb -O docker docker 
     #pg_ctlcluster 9.4 main stop
    #cp $PGCONFIG/postgresql.conf $PGDATA/postgresql.conf
 #/etc/init.d/postgresql start &&\
