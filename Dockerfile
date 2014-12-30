@@ -37,8 +37,7 @@ USER postgres
 RUN    /etc/init.d/postgresql start &&\
     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
     createdb -O docker docker &&\
-    ssh-keygen -t rsa  &&\
-    #-f $PGHOME/.ssh/id_rsa -q -N ""  &&\
+    ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
     cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
     chmod go-rwx $PGHOME/.ssh/*
    
