@@ -57,7 +57,7 @@ RUN apt-get update &&\
 
 #Log issue fix (not working)
 #ADD pg_ctl.conf $PGCONFIG/pg_ctl.conf
-#RUN   chown -R maximus:maximus $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN
+RUN  sudo  chown -R maximus:maximus  $PGCONFIG 
 #/etc/init.d #&&\
      #sudo chmod 751 $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc/init.d
 
@@ -72,7 +72,7 @@ USER maximus
 RUN	 cd /home/maximus &&\
          mkdir /home/maximus/logs/ &&\
 	 mkdir /home/maximus/cluster/ &&\
-	 #mkdir /home/maximus/cluster/data &&\
+	 mkdir /home/maximus/cluster/data &&\
 	 mkdir /home/maximus/socketsandstats/ 
 
 EXPOSE  5435 6432 22    
