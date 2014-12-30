@@ -77,7 +77,7 @@ RUN	 cd /home/maximus &&\
 ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 
-RUN	 pg_createcluster  -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster &&\
+RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster &&\
 	 
 	 #echo unix_socket_directories = '/home/maximus/sockets/'  >> /etc/postgresql/9.4/cluster/postgresql.conf
 	 #echo stats_temp_directory = '/home/maximus/sockets/' >> /etc/postgresql/9.4/cluster/postgresql.conf
