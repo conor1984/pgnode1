@@ -77,6 +77,7 @@ RUN	 cd /home/maximus &&\
 
 EXPOSE  5435 6432 22    
 RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster 
+ADD cluster.conf /home/maximus/cluster/data/postgresql.conf
 #ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf
  
 	 #echo unix_socket_directories = '/home/maximus/sockets/'  >> /etc/postgresql/9.4/cluster/postgresql.conf
@@ -120,7 +121,7 @@ RUN    psql  -h /home/maximus/socketsandstats -p 5435  --command  "CREATE DATABA
 
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
-ADD cluster.conf /home/maximus/cluster/data/postgresql.conf
+
 ADD .pgpass  $PGHOME/.pgpass
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
