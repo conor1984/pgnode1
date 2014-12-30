@@ -78,7 +78,7 @@ ADD pg_hba.conf /home/maximus/cluster/pg_hba.conf
 
 RUN	 pg_createcluster --start -p 5433 -c /home/maximus/cluster -s /home/maximus/sockets/ -d /home/maximus/cluster/data -l home/maximus/logs/cluster.log 9.4 cluster &&\
 	 cp /etc/postgresql/9.4/cluster/postgresql.conf /home/maximus/cluster/data/postgresql.conf
-	 postgres -D /home/maximus/cluster/data
+	# postgres -D /home/maximus/cluster/data
         # pg_ctlcluster  9.4 cluster start  
 EXPOSE 5433 6432 22
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
@@ -96,7 +96,7 @@ EXPOSE 5433 6432 22
      #-l $PGLOG/postgresql-9.4-main.log &&\
     # createdb Repmgr &&\
      #createdb Billboard &&\
-RUN    psql -h localhost -p 5433 --command  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+RUN    psql  -p 5433 --command  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
