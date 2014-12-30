@@ -120,7 +120,7 @@ RUN    psql  -h /home/maximus/socketsandstats -p 5435  --command  "CREATE DATABA
 
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
-ADD postgresql.conf /etc/postgresql/9.4/cluster/postgresql.conf	
+#ADD postgresql.conf /etc/postgresql/9.4/cluster/postgresql.conf	
 ADD .pgpass  $PGHOME/.pgpass
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
