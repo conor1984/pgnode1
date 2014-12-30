@@ -62,8 +62,8 @@ RUN  sudo mkdir /etc/postgresql/9.4/cluster &&\
      #sudo chmod 751 $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc/init.d
 
 #$PGRUN
-USER postgres
-RUN	rm /var/run/postgresql/*
+#USER postgres
+#RUN	rm /var/run/postgresql/*
 	
 
 
