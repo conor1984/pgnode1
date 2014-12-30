@@ -45,7 +45,7 @@ RUN apt-get update &&\
 #mailutils
 
 
-#USER postgres
+
 RUN  sudo mkdir /etc/postgresql/9.4/cluster &&\
      sudo chown maximus -R /etc/postgresql/9.4/cluster 
      #ln -s /home/maximus/sockets/.s.PGSQL.5432 /var/run/postgresql/.s.PGSQL.5432
@@ -62,7 +62,9 @@ RUN  sudo mkdir /etc/postgresql/9.4/cluster &&\
      #sudo chmod 751 $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc/init.d
 
 #$PGRUN
-
+USER postgres
+RUN	cd /var/lib/postgresql/9.4 &&\
+	rm postmaster.pid
 	
 
 
