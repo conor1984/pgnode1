@@ -6,7 +6,7 @@ FROM ubuntu:14.04
 #Environment 
 ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin
 ENV PGDATA		/var/lib/postgresql/9.4/main
-ENV PGCONFIG	/etc/postgresql/9.4/
+ENV PGCONFIG	/etc/postgresql/9.4/main
 ENV PGBOUNCE    /etc/pcgbouncer
 ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
@@ -121,7 +121,7 @@ RUN    psql  -h /home/maximus/socketsandstats -p 5435  --command  "CREATE DATABA
 
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
-
+ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD .pgpass  $PGHOME/.pgpass
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
