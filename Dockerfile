@@ -78,12 +78,13 @@ ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 
 RUN	 pg_createcluster -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster &&\
-	 sed -i 's/var\/run/home\/maximus\/socketsandstats/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
-	 sed -i 's/#listen_addresses/listen_addresses/g' /etc/postgresql/9.4/cluster/postgresql.conf  &&\
-	 sed -i 's/localhost/*/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
+	 
 	 #echo unix_socket_directories = '/home/maximus/sockets/'  >> /etc/postgresql/9.4/cluster/postgresql.conf
 	 #echo stats_temp_directory = '/home/maximus/sockets/' >> /etc/postgresql/9.4/cluster/postgresql.conf
 	 cp /etc/postgresql/9.4/cluster/postgresql.conf /home/maximus/cluster/data/postgresql.conf &&\
+	 sed -i 's/var\/run/home\/maximus\/socketsandstats/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
+	 sed -i 's/#listen_addresses/listen_addresses/g' /etc/postgresql/9.4/cluster/postgresql.conf  &&\
+	 sed -i 's/localhost/*/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
 	# postgres -D /home/maximus/cluster/data
          pg_ctlcluster  9.4 cluster start  
 EXPOSE 5433 6432 22
