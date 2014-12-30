@@ -66,7 +66,7 @@ RUN apt-get update &&\
 #RUN	rm /var/run/postgresql/*
 	
 
-ADD cluster.conf /home/maximus/postgresql.conf
+#ADD cluster.conf /home/maximus/postgresql.conf
 	 
 USER maximus
 RUN	 cd /home/maximus &&\
