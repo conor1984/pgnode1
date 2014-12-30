@@ -77,7 +77,7 @@ RUN	 cd /home/maximus &&\
 ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 
-RUN	 pg_createcluster -p 5433 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster &&\
+RUN	 pg_createcluster -p 5434 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster &&\
 	 
 	 #echo unix_socket_directories = '/home/maximus/sockets/'  >> /etc/postgresql/9.4/cluster/postgresql.conf
 	 #echo stats_temp_directory = '/home/maximus/sockets/' >> /etc/postgresql/9.4/cluster/postgresql.conf
@@ -87,7 +87,7 @@ RUN	 pg_createcluster -p 5433 -s /home/maximus/socketsandstats -d /home/maximus/
 	 #sed -i 's/localhost/*/g' /etc/postgresql/9.4/cluster/postgresql.conf &&\
 	# postgres -D /home/maximus/cluster/data
          pg_ctlcluster  9.4 cluster start  
-EXPOSE 5433 6432 22
+EXPOSE  5434 6432 22
 	 #echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin export PATH' > .pam_environment &&\
 	 #. ~/.pam_environment &&\ 
 	 #/etc/init.d/postgresql start &&\
@@ -103,7 +103,7 @@ EXPOSE 5433 6432 22
      #-l $PGLOG/postgresql-9.4-main.log &&\
     # createdb Repmgr &&\
      #createdb Billboard &&\
-RUN    psql  -p 5433 -h /home/maximus/socketsandstats --command  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
+RUN    psql  -p 5434 -h /home/maximus/socketsandstats --command  "CREATE USER docker WITH SUPERUSER PASSWORD 'docker'"
     # $PSQL "CREATE ROLE repmgr LOGIN SUPERUSER;" &&\
      #$PSQL "CREATE DATABASE Repmgr;" &&\ 
      #$PSQL "CREATE DATABASE Billboard;" &&\
