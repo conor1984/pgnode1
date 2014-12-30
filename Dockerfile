@@ -34,6 +34,7 @@ USER postgres
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
 RUN    pg_ctl start &&\
+    cp $PGCONFIG/postgresql.conf $PGDATA/postgresql.conf
 #/etc/init.d/postgresql start &&\
     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
     createdb -O docker docker 
