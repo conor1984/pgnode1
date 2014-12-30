@@ -75,7 +75,7 @@ RUN	 cd /home/maximus &&\
 	 #mkdir /home/maximus/cluster/data &&\
 	 mkdir /home/maximus/socketsandstats/ 
 
-
+EXPOSE  5435 6432 22    
 RUN	 pg_createcluster -p 5435 -s /home/maximus/socketsandstats -d /home/maximus/cluster/data -l /home/maximus/logs/cluster.log 9.4 cluster 
 #ADD postgresql.conf /home/maximus/cluster/data/postgresql.conf
  
@@ -127,6 +127,6 @@ ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 #ADD run /usr/local/bin/run
 #RUN chmod +x /usr/local/bin/run
-EXPOSE  5435 6432 22    
+
 VOLUME  ["/home/maximus"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/home/maximus/cluster/data", "-c", "config_file=/home/maximus/cluster/postgresql.conf"]
