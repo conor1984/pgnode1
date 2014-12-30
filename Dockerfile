@@ -36,7 +36,8 @@ USER postgres
 #       allows the RUN command to span multiple lines.
 RUN    pg_ctlcluster 9.4 main start &&\
     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
-    createdb -O docker docker 
+    createdb -O docker docker &&\
+    pg_ctlcluster 9.4 main stop
    #cp $PGCONFIG/postgresql.conf $PGDATA/postgresql.conf
 #/etc/init.d/postgresql start &&\
 
@@ -64,4 +65,4 @@ EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
  #"-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf",
 # Set the default command to run when starting the container
-CMD ["/usr/lib/postgresql/9.4/bin/postgres", ">logfile 2>&1 </dev/null &"]
+CMD ["/usr/lib/postgresql/9.4/bin/pg_ctlcluster", "9.4", "main", "start"]
