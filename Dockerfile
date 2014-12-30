@@ -6,7 +6,7 @@ FROM ubuntu:14.04
 #Environment 
 ENV PATH 		/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/postgresql/9.4/bin
 ENV PGDATA		/var/lib/postgresql/9.4/main
-ENV PGCONFIG	/etc/postgresql/9.4/
+ENV PGCONFIG	/etc/postgresql/9.4/cluster
 ENV PGBOUNCE    /etc/pcgbouncer
 ENV PGLOG		/var/log/postgresql
 ENV PGREP		/etc/postgresql/9.4/repmgr
@@ -57,7 +57,7 @@ RUN apt-get update &&\
 
 #Log issue fix (not working)
 #ADD pg_ctl.conf $PGCONFIG/pg_ctl.conf
-#RUN  sudo  chown -R maximus:maximus  $PGCONFIG 
+RUN  sudo  chown -R maximus:maximus  $PGCONFIG 
 #/etc/init.d #&&\
      #sudo chmod 751 $PGHOME  $PGLOG $PGCONFIG $PGDATA $PGRUN /etc/init.d
 
