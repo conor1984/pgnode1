@@ -62,6 +62,6 @@ EXPOSE  5432 6432 22
 
 # Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-
+ #"-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf",
 # Set the default command to run when starting the container
-CMD ["pg_ctlcluster", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf", "start"]
+CMD ["pg_ctlcluster", "9.4", "main" , "start"]
