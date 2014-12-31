@@ -28,41 +28,33 @@ RUN apt-get update &&\
     
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
-#USER postgres
+USER postgres
 
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
-#RUN    /etc/init.d/postgresql start &&\
-#      psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" 
-
-
-    #ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
-    #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
-    #chmod go-rwx $PGHOME/.ssh/* &&\
-    #mkdir $PGDATA/repmgr 
+RUN    /etc/init.d/postgresql start &&\
+       psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" 
+       #ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
+       #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
+       #chmod go-rwx $PGHOME/.ssh/* &&\
+       #mkdir $PGDATA/repmgr 
 
 #RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
+
 ADD postgresql.conf $PGCONFIG/postgresql.conf
+ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 #ADD modify_postgres_pass.sh ./modify_postgres_pass.sh
 #ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
-ADD pg_hba.conf $PGCONFIG/pg_hba.conf
-#ADD addsudo.sh $PGCONFIG/addsudo.sh
-
 #ADD .pgpass  $PGHOME/.pgpass
 #ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 #ADD userlist.txt $PGBOUNCE/userlist.txt
 #ADD failover.sh $PGHOME/scripts/failover.sh
 
-ADD run.sh /var/lib/postgresql/9.4/main/run.sh
-RUN chmod +x /var/lib/postgresql/9.4/main/run.sh
+#ADD run.sh /var/lib/postgresql/9.4/main/run.sh
+#RUN chmod +x /var/lib/postgresql/9.4/main/run.sh
 #RUN chmod 755 /var/lib/postgresql/9.4/main/run.sh
 EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-CMD ["/var/lib/postgresql/9.4/main/run.sh"]
-#CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
-
-
-
-
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
