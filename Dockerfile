@@ -15,7 +15,6 @@ ENV PGREP		/etc/postgresql/9.4/repmgr
 ENV PGHOME		/var/lib/postgresql
 ENV PGRUN       /var/run/postgresql
 ENV PSQL        psql --command 
-#ENV PGRUN               /var/run/postgresql
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 &&\
     echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
@@ -23,9 +22,9 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 RUN apt-get update &&\
     apt-get install -y libc6 postgresql-9.4  \
     pgbouncer \
-    repmgr 
-    #python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 openssh-server  \
-    
+    repmgr \
+    openssh-server
+    #python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4  \
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
@@ -35,13 +34,11 @@ USER postgres
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
 RUN    /etc/init.d/postgresql start &&\
-       psql --command "CREATE USER repmgr WITH SUPERUSER PASSWORD 'repmgr';"  &&\
-       psql --command "CREATE DATABASE Billboard;" 
+       $PSQL "CREATE USER repmgr WITH SUPERUSER PASSWORD 'repmgr';"  &&\
+       $PSQL "CREATE DATABASE Billboard;" 
        #ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
        #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
        #chmod go-rwx $PGHOME/.ssh/* &&\
-
-#RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
 
 ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
@@ -50,10 +47,9 @@ ADD repmgr.conf $PGDATA/repmgr/repmgr.conf
 ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
-
 #ADD run.sh /var/lib/postgresql/9.4/main/run.sh
 #RUN chmod +x /var/lib/postgresql/9.4/main/run.sh
 #RUN chmod 755 /var/lib/postgresql/9.4/main/run.sh
 EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "$PGLOG", "$PGHOME"]
-CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "$PGDATA", "-c", "config_file=$PGCONFIG/postgresql.conf"]
