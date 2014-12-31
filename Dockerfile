@@ -63,12 +63,12 @@ RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 ADD modify_postgres_pass.sh ./modify_postgres_pass.sh
 ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
-ADD addsudo.sh $PGCONFIG/addsudo.sh
+#ADD addsudo.sh $PGCONFIG/addsudo.sh
 
-ADD .pgpass  $PGHOME/.pgpass
-ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
-ADD userlist.txt $PGBOUNCE/userlist.txt
-ADD failover.sh $PGHOME/scripts/failover.sh
+#ADD .pgpass  $PGHOME/.pgpass
+#ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
+#ADD userlist.txt $PGBOUNCE/userlist.txt
+#ADD failover.sh $PGHOME/scripts/failover.sh
 
 ADD run.sh ./run.sh
 #RUN chmod +x /usr/local/bin/run
