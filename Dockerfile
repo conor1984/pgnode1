@@ -27,7 +27,7 @@ RUN apt-get update &&\
     #python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 openssh-server  \
     
 
-RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  &&\
+RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  
 #     cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf
 
 
