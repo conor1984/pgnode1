@@ -73,13 +73,14 @@ ADD run.sh $PGHOME/run.sh
 #RUN chmod +x /usr/local/bin/run
 RUN chmod 755 /var/lib/postgresql/*.sh
 EXPOSE  5432 6432 22
+VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 CMD ["/var/lib/postgresql/run.sh"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "-l", "/var/log/postgresql/logg.log" ]
 #CMD ["/usr/bin/pg_ctlcluster", "9.4", "start" ]
 
 # Add VOLUMEs to allow backup of config, logs and databases
-#VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+#
  #"-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf",
 # Set the default command to run when starting the container
 #CMD ["/usr/bin/pg_ctlcluster" , "9.4" , "main" , "start"]
