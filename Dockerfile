@@ -38,7 +38,8 @@ USER postgres
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
-RUN    pg_ctl -c -D /var/lib/postgresql/9.4/main  start &&\
+RUN    /etc/init.d/postgresql start &&\
+#pg_ctl -c -D /var/lib/postgresql/9.4/main  start &&\
     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" 
 #cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf &&\ 
      #pg_ctlcluster 9.4 main start &&\  
