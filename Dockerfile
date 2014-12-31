@@ -71,7 +71,7 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 
 ADD run.sh $PGHOME/run.sh
 #RUN chmod +x /usr/local/bin/run
-RUN chmod 755 /var/lib/postgresql/*.sh
+RUN chmod 755 /var/lib/postgresql/run.sh
 EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 CMD ["/var/lib/postgresql/run.sh"]
