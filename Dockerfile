@@ -75,7 +75,7 @@ ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-CMD ["/var/lib/postgresql/run.sh"]
+CMD ["/run.sh"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "-l", "/var/log/postgresql/logg.log" ]
 #CMD ["/usr/bin/pg_ctlcluster", "9.4", "start" ]
