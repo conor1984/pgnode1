@@ -46,12 +46,11 @@ RUN    /etc/init.d/postgresql start &&\
 
 ADD postgresql.conf $PGCONFIG/postgresql.conf
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
-#ADD modify_postgres_pass.sh ./modify_postgres_pass.sh
-#ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
+ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
 #ADD .pgpass  $PGHOME/.pgpass
-#ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
-#ADD userlist.txt $PGBOUNCE/userlist.txt
-#ADD failover.sh $PGHOME/scripts/failover.sh
+ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
+ADD userlist.txt $PGBOUNCE/userlist.txt
+ADD failover.sh $PGHOME/scripts/failover.sh
 
 #ADD run.sh /var/lib/postgresql/9.4/main/run.sh
 #RUN chmod +x /var/lib/postgresql/9.4/main/run.sh
