@@ -69,7 +69,7 @@ ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 
-ADD run $PGHOME/run.sh
+ADD run.sh $PGHOME/run.sh
 #RUN chmod +x /usr/local/bin/run
 EXPOSE  5432 6432 22
 CMD ["/var/lib/postgresql/run.sh"]
