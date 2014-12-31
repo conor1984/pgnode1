@@ -57,7 +57,7 @@ ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 
 #ADD run.sh /run.sh
 #RUN chmod +x /usr/local/bin/run
-RUN chmod 755 /*.sh
+#RUN chmod 755 /*.sh
 EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 #CMD ["/run.sh"]
