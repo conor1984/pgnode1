@@ -35,8 +35,8 @@ USER postgres
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
 RUN    /etc/init.d/postgresql start &&\
-       psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';"  &&\
-       psql --command "CREATE DATABASE docker;" 
+       psql --command "CREATE USER repmgr WITH SUPERUSER PASSWORD 'repmgr';"  &&\
+       psql --command "CREATE DATABASE Billboard;" 
        #ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
        #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
        #chmod go-rwx $PGHOME/.ssh/* &&\
