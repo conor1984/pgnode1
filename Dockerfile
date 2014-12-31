@@ -27,8 +27,8 @@ RUN apt-get update &&\
     #python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 openssh-server  \
     
 
-RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  
-    #sudo cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf
+RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  &&\
+    sudo cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf
 
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
