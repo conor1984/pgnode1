@@ -70,7 +70,7 @@ ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 #ADD userlist.txt $PGBOUNCE/userlist.txt
 #ADD failover.sh $PGHOME/scripts/failover.sh
 
-ADD run.sh ./run.sh
+ADD run.sh /run.sh
 #RUN chmod +x /usr/local/bin/run
 RUN chmod 755 /*.sh
 EXPOSE  5432 6432 22
