@@ -39,7 +39,8 @@ USER postgres
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
-RUN  pg_ctlcluster 9.4 main start &&\  
+RUN  pg_ctl start
+    #pg_ctlcluster 9.4 main start &&\  
      psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" 
     #pg_ctl  start &&\
     #cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf  &&\
@@ -69,11 +70,13 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 #RUN chmod +x /usr/local/bin/run
 EXPOSE  5432 6432 22
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf" ]
+CMD ["/usr/lib/postgresql/9.4/bin/pg_ctl", "-D", "/var/lib/postgresql/9.4/main", "-c", "-l", "/var/log/postgresql/logg.log" ]
+
 # Add VOLUMEs to allow backup of config, logs and databases
 #VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
  #"-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf",
 # Set the default command to run when starting the container
-CMD ["/usr/bin/pg_ctlcluster" , "9.4" , "main" , "start"]
+#CMD ["/usr/bin/pg_ctlcluster" , "9.4" , "main" , "start"]
 
 #"/usr/local/pgsql/bin/pg_ctl start -l logfile -D /usr/local/pgsql/data"
 
