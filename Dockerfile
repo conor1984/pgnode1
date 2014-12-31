@@ -30,7 +30,7 @@ RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  &&\
 
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
-USER postgres
+#USER postgres
 
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
 # then create a database `docker` owned by the ``docker`` role.
@@ -66,7 +66,7 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 EXPOSE  5432 6432 22
 
 # Add VOLUMEs to allow backup of config, logs and databases
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+#VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
  #"-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf",
 # Set the default command to run when starting the container
 CMD ["/usr/bin/pg_ctlcluster" , "9.4" , "main" , "start"]
