@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 
 service postgresql stop >/dev/null 2>&1
