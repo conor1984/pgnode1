@@ -40,7 +40,6 @@ RUN    /etc/init.d/postgresql start &&\
        #ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
        #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
        #chmod go-rwx $PGHOME/.ssh/* &&\
-       #mkdir $PGDATA/repmgr 
 
 #RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
 
@@ -56,5 +55,5 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 #RUN chmod +x /var/lib/postgresql/9.4/main/run.sh
 #RUN chmod 755 /var/lib/postgresql/9.4/main/run.sh
 EXPOSE  5432 6432 22
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+VOLUME  ["/etc/postgresql", "$PGLOG", "$PGHOME"]
 CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
