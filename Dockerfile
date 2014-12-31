@@ -37,9 +37,10 @@ RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  &&\
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
 RUN  pg_ctlcluster 9.4 main start &&\  
+     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" 
     #pg_ctl  start &&\
     #cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf  &&\
-    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" 
+    
     #createdb -O docker docker 
     #pg_ctlcluster 9.4 main stop
    #cp $PGCONFIG/postgresql.conf $PGDATA/postgresql.conf
