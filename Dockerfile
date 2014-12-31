@@ -30,7 +30,10 @@ RUN apt-get update &&\
 RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  
 #     cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf
 
+RUN echo "host all  all    0.0.0.0/0  trust" >> /$PGCONFIG/pg_hba.conf
 
+# And add ``listen_addresses`` to ``/usr/local/pgsql/data/postgresql.conf``
+RUN echo "listen_addresses='*'" >> /$PGCONFIG/postgresql.conf
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 #USER postgres
 
@@ -60,9 +63,9 @@ RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 #RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
 #ADD postgresql.conf $PGCONFIG/postgresql.conf
-ADD modify_postgres_pass.sh ./modify_postgres_pass.sh
-ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
-ADD pg_hba.conf $PGCONFIG/pg_hba.conf
+#ADD modify_postgres_pass.sh ./modify_postgres_pass.sh
+#ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
+#ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 #ADD addsudo.sh $PGCONFIG/addsudo.sh
 
 #ADD .pgpass  $PGHOME/.pgpass
