@@ -21,19 +21,12 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
     echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update &&\
-    apt-get install -y libc6 postgresql-9.4 pwgen  \
+    apt-get install -y libc6 postgresql-9.4  \
     pgbouncer \
     repmgr 
     #python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 openssh-server  \
     
 
-RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  
-#     cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf
-
-RUN echo "host all  all    0.0.0.0/0  trust" >> /$PGCONFIG/pg_hba.conf
-
-# And add ``listen_addresses`` to ``/usr/local/pgsql/data/postgresql.conf``
-RUN echo "listen_addresses='*'" >> /$PGCONFIG/postgresql.conf
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 #USER postgres
 
@@ -41,20 +34,9 @@ RUN echo "listen_addresses='*'" >> /$PGCONFIG/postgresql.conf
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
-#RUN    /etc/init.d/postgresql start &&\
-#       psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" 
-#pg_ctl -c -D /var/lib/postgresql/9.4/main  start &&\
-    
-#cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf &&\ 
-     #pg_ctlcluster 9.4 main start &&\  
-     
-    #pg_ctl  start &&\   -l /var/log/postgresql/mylog.log
-    #cp /etc/postgresql/9.4/main/postgresql.conf $PGDATA/postgresql.conf  &&\
-    
-    #createdb -O docker docker 
-    #pg_ctlcluster 9.4 main stop
-   #cp $PGCONFIG/postgresql.conf $PGDATA/postgresql.conf
-#/etc/init.d/postgresql start &&\
+RUN    /etc/init.d/postgresql start &&\
+      psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" 
+
 
     #ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
     #cat $PGHOME/.ssh/id_rsa.pub >> $PGHOME/.ssh/authorized_keys &&\
@@ -62,10 +44,10 @@ RUN echo "listen_addresses='*'" >> /$PGCONFIG/postgresql.conf
     #mkdir $PGDATA/repmgr 
 
 #RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
-#ADD postgresql.conf $PGCONFIG/postgresql.conf
+ADD postgresql.conf $PGCONFIG/postgresql.conf
 #ADD modify_postgres_pass.sh ./modify_postgres_pass.sh
 #ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
-#ADD pg_hba.conf $PGCONFIG/pg_hba.conf
+ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 #ADD addsudo.sh $PGCONFIG/addsudo.sh
 
 #ADD .pgpass  $PGHOME/.pgpass
@@ -73,21 +55,14 @@ RUN echo "listen_addresses='*'" >> /$PGCONFIG/postgresql.conf
 #ADD userlist.txt $PGBOUNCE/userlist.txt
 #ADD failover.sh $PGHOME/scripts/failover.sh
 
-ADD run.sh /run.sh
+#ADD run.sh /run.sh
 #RUN chmod +x /usr/local/bin/run
 RUN chmod 755 /*.sh
 EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-CMD ["/run.sh"]
-#CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
-#CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "-l", "/var/log/postgresql/logg.log" ]
-#CMD ["/usr/bin/pg_ctlcluster", "9.4", "start" ]
+#CMD ["/run.sh"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
 
-# Add VOLUMEs to allow backup of config, logs and databases
-#
- #"-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf",
-# Set the default command to run when starting the container
-#CMD ["/usr/bin/pg_ctlcluster" , "9.4" , "main" , "start"]
 
-#"/usr/local/pgsql/bin/pg_ctl start -l logfile -D /usr/local/pgsql/data"
+
 
