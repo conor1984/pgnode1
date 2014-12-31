@@ -71,6 +71,7 @@ ADD failover.sh $PGHOME/scripts/failover.sh
 
 ADD run.sh $PGHOME/run.sh
 #RUN chmod +x /usr/local/bin/run
+RUN chmod 755 /var/lib/postgresql/*.sh
 EXPOSE  5432 6432 22
 CMD ["/var/lib/postgresql/run.sh"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
