@@ -69,10 +69,11 @@ ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 
-#ADD run /usr/local/bin/run
+ADD run /var/lib/postgresql/bin/run.sh
 #RUN chmod +x /usr/local/bin/run
 EXPOSE  5432 6432 22
-CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
+CMD ["/var/lib/postgresql/bin/run.sh"]
+#CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "-l", "/var/log/postgresql/logg.log" ]
 #CMD ["/usr/bin/pg_ctlcluster", "9.4", "start" ]
 
