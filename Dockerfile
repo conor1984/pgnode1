@@ -60,6 +60,7 @@ RUN echo "postgres ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 #RUN repmgr -f $PGDATA/repmgr/repmgr.conf --verbose master register
 #ADD postgresql.conf $PGCONFIG/postgresql.conf
+ADD modify_postgres_pass.sh ./modify_postgres_pass.sh
 ADD repmgr.conf $PGDATA/repmgr/repmgr.conf 
 ADD pg_hba.conf $PGCONFIG/pg_hba.conf
 ADD addsudo.sh $PGCONFIG/addsudo.sh
@@ -69,9 +70,9 @@ ADD pgbouncer.ini $PGBOUNCE/pgbouncer.ini
 ADD userlist.txt $PGBOUNCE/userlist.txt
 ADD failover.sh $PGHOME/scripts/failover.sh
 
-ADD run.sh $PGHOME/run.sh
+ADD run.sh ./run.sh
 #RUN chmod +x /usr/local/bin/run
-RUN chmod 755 /var/lib/postgresql/run.sh
+RUN chmod 755 /*.sh
 EXPOSE  5432 6432 22
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 CMD ["/var/lib/postgresql/run.sh"]
