@@ -36,7 +36,10 @@ USER postgres
 #       allows the RUN command to span multiple lines.
 RUN    /etc/init.d/postgresql start &&\
        $PSQL "CREATE USER repmgr WITH SUPERUSER PASSWORD 'repmgr';"  &&\
-       createdb -O repmgr repmgr
+       createdb -O repmgr repmgr &&\
+       $PSQL "SET search_path TO myschema;" &&\
+       $PSQL "CREATE TABLE users (id integer);" &&\
+       $PSQL "INSERT INTO users values (1;)"
 
        #$PSQL "CREATE DATABASE Billboard;" 
        #ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
