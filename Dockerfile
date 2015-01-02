@@ -23,7 +23,8 @@ RUN apt-get update &&\
     apt-get install -y libc6 postgresql-9.4  \
     pgbouncer \
     repmgr \
-    openssh-server
+    openssh-server \
+    inetutils-ping
     #python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4  \
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
