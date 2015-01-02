@@ -39,7 +39,9 @@ RUN    /etc/init.d/postgresql start &&\
        createdb -O repmgr repmgr &&\
        $PSQL "SET search_path TO myschema;" &&\
        $PSQL "CREATE TABLE users (id integer);" &&\
-       $PSQL "INSERT INTO users values (1);"
+       $PSQL "INSERT INTO users values (1);" &&\
+       $PSQL "INSERT INTO users values (2);" &&\
+       $PSQL "INSERT INTO users values (3);"
 
        #$PSQL "CREATE DATABASE Billboard;" 
        #ssh-keygen -t rsa  -f $PGHOME/.ssh/id_rsa -q -N ""  &&\
