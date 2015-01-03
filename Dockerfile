@@ -27,6 +27,12 @@ RUN apt-get update &&\
     inetutils-ping
     #python-software-properties software-properties-common postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4  \
 
+ADD repmgr.conf $PGREP/repmgr.conf 
+RUN chown -R postgres:postgres $PGREP/* &&\
+    chown -R postgres:postgres $PGHOME/* &&\
+    chmod 700 $PGREP/*  &&\
+    chmod 700 $PGHOME/*  
+    
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
 
